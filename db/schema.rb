@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009225957) do
+ActiveRecord::Schema.define(version: 20171009233531) do
+
+  create_table "golf_courses", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "holes"
+    t.integer "total_par"
+    t.integer "course_slope"
+    t.float "course_rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "golfers", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -32,6 +43,14 @@ ActiveRecord::Schema.define(version: 20171009225957) do
     t.index ["provider"], name: "index_golfers_on_provider"
     t.index ["reset_password_token"], name: "index_golfers_on_reset_password_token", unique: true
     t.index ["uid"], name: "index_golfers_on_uid"
+  end
+
+  create_table "rounds", force: :cascade do |t|
+    t.integer "score"
+    t.integer "golfer_id"
+    t.integer "golf_course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

@@ -4,8 +4,13 @@ Rails.application.routes.draw do
   root 'welcome#home'
 
   devise_for :golfers, :controllers => { :omniauth_callbacks => "golfers/omniauth_callbacks" }
-  resources :golfers, only: [:index, :show]
 
-  resources :golf_courses
+  resources :golfers, only: [:index, :show] do
+    resources :rounds
+  end
+
+  resources :golf_courses do
+    resources :rounds, only: [:index]
+  end
 
 end
