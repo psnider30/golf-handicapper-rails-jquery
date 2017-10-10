@@ -1,0 +1,28 @@
+<!--  navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    <a class="navbar-brand" href="<%= root_url %>"/>Home</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <% if logged_in? %>
+          <li><%= link_to "Hello, #{current_golfer.name}!", golfer_path(current_golfer) %></li>
+          <li><%= link_to "Golf Courses", golf_courses_path %></li>
+          <li><%= link_to "Log Out", destroy_golfer_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Sign Up", new_golfer_registration_path%></li>
+          <li><%= link_to "Sign in", new_golfer_session_path%></li>
+          <li><%= link_to "Sign in with Facebook", golfer_facebook_omniauth_authorize_path %></li>
+          <li><%= link_to "Sign in with Google", golfer_google_omniauth_authorize_path %></li>
+        <% end %>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
