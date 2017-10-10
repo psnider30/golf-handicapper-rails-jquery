@@ -13,6 +13,7 @@ validates_presence_of :name
    def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |golfer|
       golfer.email = auth.info.email
+      golfer.name = auth.info.name
       golfer.password = Devise.friendly_token[0,20]
     end
   end

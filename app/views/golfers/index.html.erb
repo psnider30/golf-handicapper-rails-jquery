@@ -1,1 +1,7 @@
 <h1>Golfers</h1>
+
+<ul>
+  <% @golfers.each do |golfer| %>
+    <li><%=link_to golfer.name, golfer_path(golfer) %></li>
+  <% end %>
+</ul>

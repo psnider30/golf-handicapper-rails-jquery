@@ -8,6 +8,8 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
     <nav>
+      <p> <%= link_to "Sign Up", new_golfer_registration_path if !logged_in?%></p>
+      <p> <%= link_to "Sign in", new_golfer_session_path if !logged_in?%></p>
       <p> <%= link_to "Sign in with Facebook", golfer_facebook_omniauth_authorize_path if !logged_in?%></p>
       <p> <%= link_to "Sign in with Google", golfer_google_omniauth_authorize_path if !logged_in?%></p>
       <p> <%= button_to "Sign Out", destroy_golfer_session_path, method: 'delete' if logged_in? %></p>
