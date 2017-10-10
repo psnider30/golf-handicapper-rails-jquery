@@ -1,1 +1,14 @@
-<h1>show golf_course <%= @golf_course.name %></h1>
+<p id="notice"><%= notice %></p>
+<h1><%= @golf_course.name %></h1>
+
+<h4>Course Description:</h4>
+<p><%= @golf_course.description %></p><br><br>
+
+<h4>Course Details:</h4>
+
+<p>Holes: <%= @golf_course.holes %></p>
+<p>Holes: <%= @golf_course.total_par %></p>
+<p>Holes: <%= @golf_course.course_slope %></p>
+<p>Holes: <%= @golf_course.course_rating %></p><br><br>
+
+<%= link_to 'Edit Golf Course', edit_golf_course_path %>

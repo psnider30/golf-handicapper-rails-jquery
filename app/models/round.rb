@@ -7,7 +7,7 @@ class Round < ApplicationRecord
 
 
   def from_par
-    golf_course.total_par - golfer.score
+    golf_course.total_par - self.score
   end
 
   def round_index

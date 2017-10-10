@@ -62,11 +62,6 @@ body {
   text-align: left;
 }
 
-.alert {
-  color: white;
-  background-color: red;
-}
-
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;

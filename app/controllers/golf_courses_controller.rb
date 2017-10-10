@@ -7,7 +7,6 @@ class GolfCoursesController < ApplicationController
   end
 
   def show
-    set_golf_course
   end
 
   def new
@@ -16,6 +15,12 @@ class GolfCoursesController < ApplicationController
 
   def create
     @golf_course = GolfCourse.new(golf_course_params)
+
+    if @golf_course.save
+      redirect_to @golf_course, { notice: 'golf course created successfully.' }
+    else
+      render 'new'
+    end
   end
 
   def edit

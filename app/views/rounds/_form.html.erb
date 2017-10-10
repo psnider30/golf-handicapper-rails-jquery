@@ -1,0 +1,10 @@
+<%= form_for([current_golfer, round])  do |f| %>
+
+  <%= f.label :score %>
+  <%= f.number_field :score %><br>
+
+  <%= f.collection_select(:golf_course_id, GolfCourse.all, :id, :name )%>
+  <%= f.hidden_field :golfer_id, value: current_golfer.id %>
+  <%= f.submit %>
+
+<% end %>

@@ -1,2 +1,3 @@
-<h1>Rounds#new</h1>
-<p>Find me in app/views/rounds/new.html.erb</p>
+<h1>Enter New Round</h1>
+
+<%= render partial: '/rounds/form', locals: { round: @round, current_golfer: current_golfer } %>

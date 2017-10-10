@@ -1,1 +1,13 @@
-<h1>show golfer <%= @golfer.name %></h1>
+<h1>Rounds for, <%= @golfer.name %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<ul>
+  <% @golfer.rounds.each do |round| %>
+    <li><%= round.golf_course.name %> | <%= round.score %> | <%= round.from_par %></li>
+  <% end %>
+</ul>
+
+
+
+<%= link_to 'Enter New Round', new_golfer_round_path(@golfer) %>

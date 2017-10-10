@@ -1,0 +1,21 @@
+<%= form_for golf_course do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br>
+
+  <%= f.label :description %>
+  <%= f.text_field :description %><br>
+
+  <%= f.label :holes %>
+  <%= f.number_field :holes %><br>
+
+  <%= f.label :total_par %>
+  <%= f.number_field :total_par %><br>
+
+  <%= f.label :course_slope %>
+  <%= f.number_field :course_slope %><br>
+
+  <%= f.label :course_rating %>
+  <%= f.number_field :course_rating, class: :text_field, :step => 0.1 %><br>
+
+  <%= f.submit %>
+<% end %>
