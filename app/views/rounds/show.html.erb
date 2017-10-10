@@ -11,8 +11,9 @@
 <h4>Course Details:</h4>
 
 <p>Holes: <%= @round.golf_course.holes %></p>
-<p>Holes: <%= @round.golf_course.total_par %></p>
-<p>Holes: <%= @round.golf_course.course_slope %></p>
-<p>Holes: <%= @round.golf_course.course_rating %></p><br><br>
+<p>Par: <%= @round.golf_course.total_par %></p>
+<p>Course Slope: <%= @round.golf_course.course_slope %></p>
+<p>Course Rating: <%= @round.golf_course.course_rating %></p><br><br>
 
 <%= link_to 'Edit Round', edit_golfer_round_path(@round.golfer, @round) %>
+<%= button_to 'Delete Round', golfer_round_path(@round.golfer, @round), :method => 'delete' %>

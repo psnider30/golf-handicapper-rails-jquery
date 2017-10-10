@@ -19,7 +19,7 @@ class GolfCoursesController < ApplicationController
     if @golf_course.save
       redirect_to @golf_course, { notice: 'golf course created successfully.' }
     else
-      render 'new'
+      render 'golf_courses/new'
     end
   end
 
@@ -30,7 +30,7 @@ class GolfCoursesController < ApplicationController
     if @golf_course.update(golf_course_params)
       redirect_to @golf_course, { notice: 'golf course updated successfully.' }
     else
-      render 'edit'
+      render 'golf_courses/edit'
     end
   end
 

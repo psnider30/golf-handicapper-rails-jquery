@@ -4,7 +4,10 @@
 
 <ul>
   <% @golfer.rounds.each do |round| %>
-    <li><%= round.golf_course.name %> | <%= round.score %> | <%= round.from_par %></li>
+    <li>
+      <%= round.golf_course.name %> | score: <%= round.score %> | over/under: <%= round.from_par %> |
+      <%= link_to 'edit round', edit_golfer_round_path(@golfer, round) %>
+    </li>
   <% end %>
 </ul>
 

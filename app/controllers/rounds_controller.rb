@@ -18,7 +18,7 @@ class RoundsController < ApplicationController
     @round = Round.new(round_params)
 
     if @round.save
-      redirect_to golfer_round_path(current_golfer.id, @round.id), { notice: "Round of #{@round.score} at #{@round.golf_course} entered successfully."}
+      redirect_to golfer_round_path(current_golfer.id, @round.id), { notice: "Round of #{@round.score} at #{@round.golf_course.name} entered successfully." }
     else
       render 'rounds/new'
     end
@@ -28,9 +28,17 @@ class RoundsController < ApplicationController
   end
 
   def update
+    if @round.update(round_params)
+      redirect_to golfer_round_path(current_golfer.id, @round.id), { notice: "Round of #{@round.score} at #{@round.golf_course.name} updated successfully." }
+    else
+      render 'rounds/edit'
+    end
   end
 
   def destroy
+    @golfer = Golfer.find_by(id: params[:golfer_id])
+    @round.destroy
+    redirect_to @golfer
   end
 
   private
