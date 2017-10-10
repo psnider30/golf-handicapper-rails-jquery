@@ -5,6 +5,8 @@ class Golfer < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook, :google]
 
+validates_presence_of :name
+
  has_many :rounds
  has_many :golf_courses, through: :rounds
 
@@ -16,18 +18,18 @@ class Golfer < ActiveRecord::Base
   end
 
   def self.lowest_index
-    self.index.min
+    all.golfer_index.min
   end
 
   def self.highest_course_slope
-    self.index.max
+    all.golfer_index.max
   end
 
   def golfer_index
   end
 
   def course_handicap(golf_course)
-    self.index * (golf_course.course_rating / 113)
+    self.golfer_index * (golf_course.course_rating / 113)
   end
 
 
