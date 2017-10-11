@@ -1,14 +1,18 @@
 <p id="notice"><%= notice %></p>
-<h1><%= @golf_course.name %></h1>
+<h1><%= @golf_course.name %></h1><br>
 
-<h4>Course Description:</h4>
-<p><%= @golf_course.description %></p><br><br>
+<div>
+  <h4>Course Description:</h4>
+  <p><%= @golf_course.description %></p>
+</div><br>
 
-<h4>Course Details:</h4>
+<div>
+  <h4>Course Details:</h4>
 
-<p>Holes: <%= @golf_course.holes %></p>
-<p>Holes: <%= @golf_course.total_par %></p>
-<p>Holes: <%= @golf_course.course_slope %></p>
-<p>Holes: <%= @golf_course.course_rating %></p><br><br>
+  <p>Holes: <%= @golf_course.holes %></p>
+  <p>Holes: <%= @golf_course.total_par %></p>
+  <p>Holes: <%= @golf_course.course_slope %></p>
+  <p>Holes: <%= @golf_course.course_rating %></p>
+</div><br>
 
-<%= link_to 'Edit Golf Course', edit_golf_course_path %>
+<%= button_to 'Edit Golf Course', edit_golf_course_path, method: 'get' %>

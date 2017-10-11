@@ -13,7 +13,7 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <% if logged_in? %>
-          <li><%= link_to "Rounds by #{current_golfer.name}", golfer_path(current_golfer) %></li>
+          <li><%= link_to "Your rounds, #{current_golfer.name}", golfer_path(current_golfer) %></li>
           <li><%= link_to "Golf Courses", golf_courses_path %></li>
           <li><%= link_to "Golfers", golfers_path %></li>
           <li><%= link_to "Log Out", destroy_golfer_session_path, method: :delete %></li>
