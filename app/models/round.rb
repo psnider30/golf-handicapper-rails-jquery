@@ -7,7 +7,13 @@ class Round < ApplicationRecord
 
 
   def from_par
-    self.score - golf_course.total_par
+    over_under = self.score - golf_course.total_par
+
+  end
+
+  def display_from_par
+    over_under = from_par
+    over_under == 0 ? "Even" : over_under
   end
 
   def round_index

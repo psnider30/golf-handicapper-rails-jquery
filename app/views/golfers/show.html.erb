@@ -1,16 +1,16 @@
-<h1>Rounds for, <%= @golfer.name %></h1>
+<h1>Rounds played by: <%= @golfer.name %></h1>
 
 <p id="notice"><%= notice %></p>
 
 <ul>
   <% @golfer.rounds.each do |round| %>
     <li>
-      <%= round.golf_course.name %> | score: <%= round.score %> | over/under: <%= round.from_par %> |
-      <%= link_to 'edit round', edit_golfer_round_path(@golfer, round) %>
+      <%= round.golf_course.name %> | score: <%= round.score %> | over/under: <%= round.display_from_par %> |
+      <%= link_to 'edit round', edit_golfer_round_path(@golfer, round) if current_golfer == @golfer %>
     </li>
   <% end %>
 </ul>
 
 
 
-<%= link_to 'Enter New Round', new_golfer_round_path(@golfer) %>
+<%= link_to 'Enter New Round', new_golfer_round_path(@golfer) if current_golfer.id == params[:id] %>

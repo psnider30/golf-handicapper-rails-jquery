@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   devise_for :golfers, :controllers => { omniauth_callbacks: 'golfers/omniauth_callbacks', registrations: 'registrations' }
 
   resources :golfers, only: [:index, :show] do
-    resources :rounds
+    resources :rounds, only: [:show, :new, :create, :edit, :update, :destroy]
   end
 
   resources :golf_courses do

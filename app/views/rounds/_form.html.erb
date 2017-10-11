@@ -4,7 +4,7 @@
   <%= f.number_field :score %><br>
 
   <%= f.collection_select(:golf_course_id, GolfCourse.all, :id, :name )%>
-  <%= f.hidden_field :golfer_id, value: current_golfer.id %><br>
+  <%= f.hidden_field :golfer_id, value: current_golfer.id %><br><br>
   <%= f.submit %>
 
 <% end %>

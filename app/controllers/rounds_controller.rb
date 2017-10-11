@@ -3,8 +3,11 @@ class RoundsController < ApplicationController
   before_action :set_round, only: [:show, :edit, :update, :destroy]
 
   def index
-    @golfer = Golfer.find_by(id: params[:golfer_id])
-    @rounds = @golfer.rounds
+    if params[:golf_course_id]
+      @golf_course = GolfCourse.find_by(id: params[:golf_course_id])
+      @golf_course_rounds = @golf_course.rounds
+      render 'rounds/golf_course_rounds_index'
+    end
   end
 
   def show
@@ -18,7 +21,8 @@ class RoundsController < ApplicationController
     @round = Round.new(round_params)
 
     if @round.save
-      redirect_to golfer_round_path(current_golfer.id, @round.id), { notice: "Round of #{@round.score} at #{@round.golf_course.name} entered successfully." }
+      redirect_to golfer_round_path(current_golfer.id, @round.id), { notice: "Round of #{@round.score} at #{@round.golf_course.name}
+       by #{@round.golfer.name} entered successfully." }
     else
       render 'rounds/new'
     end
@@ -29,7 +33,8 @@ class RoundsController < ApplicationController
 
   def update
     if @round.update(round_params)
-      redirect_to golfer_round_path(current_golfer.id, @round.id), { notice: "Round of #{@round.score} at #{@round.golf_course.name} updated successfully." }
+      redirect_to golfer_round_path(current_golfer.id, @round.id), { notice: "Round of #{@round.score} at #{@round.golf_course.name}
+       by #{@round.golfer.name} updated successfully." }
     else
       render 'rounds/edit'
     end

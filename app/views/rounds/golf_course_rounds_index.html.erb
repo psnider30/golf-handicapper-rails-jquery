@@ -1,0 +1,8 @@
+<h1> Rounds Played at <%= @golf_course.name %></h1>
+
+<ul>
+  <% @golf_course_rounds.each do |round| %>
+    <li><%= round.golfer.name %> | <%= round.score %></li>
+  <% end %>
+
+</ul>
