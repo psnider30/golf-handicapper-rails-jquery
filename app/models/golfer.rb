@@ -26,11 +26,26 @@ validates_presence_of :name
     all.golfer_index.max
   end
 
+  def golfer_round_indexes
+    if self.rounds_posted < 20
+      self.rounds.map { |round| round.round_index }
+    else
+      recent_twenty = self.rounds.order(created_at: :asc).limit(20)
+      best_ten = recent_twenty.order(score: :asc).limit(10)
+      best_ten.map { |round| round.round_index }
+    end
+  end
+
   def golfer_index
+    (self.golfer_round_indexes.inject { |sum, round_index| sum + round_index } / self.rounds.count).round(1)
   end
 
   def course_handicap(golf_course)
     self.golfer_index * (golf_course.course_rating / 113)
+  end
+
+  def rounds_posted
+    self.rounds.count
   end
 
 

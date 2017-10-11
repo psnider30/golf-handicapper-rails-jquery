@@ -2,9 +2,6 @@
   <%= f.label :name %>
   <%= f.text_field :name %><br>
 
-  <%= f.label :description %>
-  <%= f.text_field :description %><br>
-
   <%= f.label :holes %>
   <%= f.number_field :holes %><br>
 
@@ -15,7 +12,10 @@
   <%= f.number_field :course_slope %><br>
 
   <%= f.label :course_rating %>
-  <%= f.number_field :course_rating, class: :text_field, :step => 0.1 %><br>
+  <%= f.number_field :course_rating, class: :text_field, :step => 0.1 %>
+
+  <p>Description:</p>
+  <%= f.text_area :description, { rows: 5, cols: 60} %><br><br>
 
   <%= f.submit %>
 <% end %>

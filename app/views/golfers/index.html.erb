@@ -1,7 +1,24 @@
 <h1>Golfers</h1>
 
-<ul>
-  <% @golfers.each do |golfer| %>
-    <li><%=link_to golfer.name, golfer_path(golfer) %></li>
-  <% end %>
-</ul>
+<table style='width: 70%'>
+  <thead>
+    <tr>
+      <th align="left"><strong>Name</strong></th>
+      <th align="left"><strong>Index</strong></th>
+      <th align="center"><strong>Rounds Posted</strong></th>
+      <th align="left"><strong>Email</strong></th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @golfers.each do |golfer| %>
+      <tr>
+        <td><%=link_to golfer.name, golfer_path(golfer) %></td>
+        <td><%= golfer.golfer_index %></td>
+        <td align="center"><%= golfer.rounds_posted %></td>
+        <td><%= golfer.email %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

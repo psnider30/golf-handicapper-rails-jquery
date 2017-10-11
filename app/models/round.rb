@@ -17,7 +17,7 @@ class Round < ApplicationRecord
   end
 
   def round_index
-    (113 * (golfer.score - golf_course.course_rating)) / 130
+    (113 * (self.score - golf_course.course_rating)) / 130
   end
 
 end
