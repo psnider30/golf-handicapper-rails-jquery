@@ -19,6 +19,7 @@
         <th align="left"><strong>Golf Course</strong></th>
         <th align="left"><strong>Score</strong></th>
         <th align="left"><strong>Over/Under</strong></th>
+        <th align="left"><strong>Date Posted</strong></th>
         <th align="left"></th>
       </tr>
     </thead>
@@ -29,6 +30,7 @@
           <td><%= round.golf_course.name %></td>
           <td><%= round.score %></td>
           <td><%= round.display_from_par %></td>
+          <td><%= round.created_at.strftime('%m/%d/%Y') %></td>
           <td><%= link_to 'edit round', edit_golfer_round_path(@golfer, round) if current_golfer == @golfer %></td>
         </tr>
       <% end %>

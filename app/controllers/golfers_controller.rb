@@ -13,6 +13,7 @@ class GolfersController < ApplicationController
   def destroy
     can_delete_profile
     @golfer = Golfer.find(params[:id])
+    @golfer.rounds.destroy
     @golfer.destroy
   end
 

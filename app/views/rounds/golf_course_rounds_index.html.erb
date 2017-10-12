@@ -1,8 +1,23 @@
 <h1> Rounds Played at <%= @golf_course.name %></h1>
 
-<ul>
-  <% @golf_course_rounds.each do |round| %>
-    <li><%= round.golfer.name %> | <%= round.score %></li>
-  <% end %>
+<table style='width: 45%'>
+  <thead>
+    <tr>
+      <th align="left"><strong>Golfer</strong></th>
+      <th align="left"><strong>Score</strong></th>
+      <th align="left"><strong>Over/Under</strong></th>
+      <th align="left"><strong>Date Posted</strong></th>
+    </tr>
+  </thead>
 
-</ul>
+  <tbody>
+    <% @golf_course_rounds.each do |round| %>
+      <tr>
+        <td><%= round.golfer.name %></td>
+        <td><%= round.score %></td>
+        <td><%= round.display_from_par %></td>
+        <td><%= round.created_at.strftime('%m/%d/%Y') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

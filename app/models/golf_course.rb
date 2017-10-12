@@ -2,6 +2,7 @@ class GolfCourse < ApplicationRecord
 
   validates_presence_of :name, :description, :holes, :total_par, :course_slope, :course_rating
   validates_uniqueness_of :name
+  validates :holes, inclusion: { in: [9, 18] }
 
   has_many :rounds
   has_many :golfers, through: :rounds
@@ -12,6 +13,10 @@ class GolfCourse < ApplicationRecord
 
   def self.highest_course_slope
     self.course_slope.max
+  end
+
+  def lowest_round
+    self.rounds.order(score: 'asc').min
   end
 
 end
