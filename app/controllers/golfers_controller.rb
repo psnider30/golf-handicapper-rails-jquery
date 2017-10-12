@@ -10,4 +10,15 @@ class GolfersController < ApplicationController
     @golfer = Golfer.find(params[:id])
   end
 
+  def destroy
+    can_delete_profile
+    @golfer = Golfer.find(params[:id])
+    @golfer.destroy
+  end
+
+  private
+
+  def can_delete_profile
+    redirect_to root_url unless current_golfer.id == params[:id]
+  end
 end

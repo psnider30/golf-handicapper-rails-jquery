@@ -3,6 +3,7 @@ class GolfCoursesController < ApplicationController
   before_action :set_golf_course, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user
 
+
   def index
     @golf_courses = GolfCourse.all
   end
@@ -27,6 +28,11 @@ class GolfCoursesController < ApplicationController
   def edit
   end
 
+  def is_owner?(resource)
+    redirect_to golfer_path(current_golfer) if resource.golfer != current_golfer
+  end
+
+
   def update
     if @golf_course.update(golf_course_params)
       redirect_to @golf_course, { notice: 'golf course updated successfully.' }
@@ -49,4 +55,5 @@ class GolfCoursesController < ApplicationController
   def golf_course_params
     params.require(:golf_course).permit(:name, :description, :holes, :total_par, :course_slope, :course_rating)
   end
+
 end

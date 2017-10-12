@@ -8,7 +8,6 @@ class Round < ApplicationRecord
 
   def from_par
     over_under = self.score - golf_course.total_par
-
   end
 
   def display_from_par

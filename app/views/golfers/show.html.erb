@@ -34,4 +34,6 @@
       <% end %>
     </tbody>
   </table>
-</div>
+</div><br>
+
+<%= button_to "Delete Profile", golfer_path(@golfer), method: 'delete' if current_golfer.id == params[:id].to_i %>

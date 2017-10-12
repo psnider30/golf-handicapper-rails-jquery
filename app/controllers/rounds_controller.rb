@@ -30,9 +30,11 @@ class RoundsController < ApplicationController
   end
 
   def edit
+    authenticate_owner(@round)
   end
 
   def update
+    authenticate_owner(@round)
     if @round.update(round_params)
       redirect_to golfer_round_path(current_golfer.id, @round.id), { notice: "Round of #{@round.score} at #{@round.golf_course.name}
        by #{@round.golfer.name} updated successfully." }
@@ -42,6 +44,7 @@ class RoundsController < ApplicationController
   end
 
   def destroy
+    authenticate_owner(@round)
     @golfer = Golfer.find_by(id: params[:golfer_id])
     @round.destroy
     redirect_to @golfer
