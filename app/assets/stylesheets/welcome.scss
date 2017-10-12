@@ -2,20 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.left-pic {
+.home-pic {
   float: left;
-  position: relative;
-  margin: 5px;
-}
-
-.right-info {
-  margin: 5px;
-  float: left;
-  position: relative;
-  height:325px;
-  width: 550px;
-  background-color: #EEEEEE;
-  text-align: center;
-  padding: 80px 60px 20px 60px;
-  border-radius: 7px;
+  height: auto;
+  width: 100%;
+  margin: 10px;
 }

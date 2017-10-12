@@ -8,15 +8,15 @@ class GolfCourse < ApplicationRecord
   has_many :golfers, through: :rounds
 
   def self.lowest_course_slope
-    self.course_slope.min
+      self.order(:course_slope).first
   end
 
   def self.highest_course_slope
-    self.course_slope.max
+    self.order(:course_slope).last
   end
 
-  def lowest_round
-    self.rounds.order(score: 'asc').min
+  def course_lowest_round
+    self.rounds.order(:score).first
   end
 
 end

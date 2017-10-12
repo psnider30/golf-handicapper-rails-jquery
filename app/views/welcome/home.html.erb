@@ -4,6 +4,16 @@
 
   <h1>Welcome <%= current_golfer.name if current_golfer %></h1>
 
-  <div class="left-pic">
-    <%= image_tag('whistling_straits_7.jpg') %>
+  <% if logged_in? %>
+    <div>
+      <h4> Golfers in your Group: <%= @golfers.count %></h4>
+      <h4>Most Difficult Course: <%= @golf_courses.highest_course_slope.name %> with course slope of <%= @golf_courses.highest_course_slope.course_slope %></h4>
+      <h4>Easiest Course: <%= @golf_courses.lowest_course_slope.name %> with course slope of <%= @golf_courses.lowest_course_slope.course_slope %></h4>
+      <h4>Low Round: <%= @low_round.score %> by <%= @low_round.golfer.name %> at <%= @low_round.golf_course.name %></h4>
+      <h4>Low Handicap Index: <%= @low_golfer.golfer_index %> for <%= @low_golfer.name %></h4>
+    </div><br>
+  <% end %>
+
+  <div class="home-pic">
+    <%= image_tag('Cypress-Point-15.jpg') %>
   </div>

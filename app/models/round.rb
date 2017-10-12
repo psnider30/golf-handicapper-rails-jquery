@@ -5,6 +5,9 @@ class Round < ApplicationRecord
   belongs_to :golfer
   belongs_to :golf_course
 
+  def self.low_round
+    self.order(:score).first
+  end
 
   def from_par
     over_under = self.score - golf_course.total_par

@@ -19,11 +19,7 @@ validates_presence_of :name
   end
 
   def self.lowest_index
-    all.golfer_index.min
-  end
-
-  def self.highest_course_slope
-    all.golfer_index.max
+    self.all.min_by(&:golfer_index)
   end
 
   def golfer_round_indexes
