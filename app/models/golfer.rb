@@ -48,7 +48,7 @@ validates_presence_of :name
     self.rounds.count
   end
 
-  def home_course
+  def course_most_played
     golf_courses_names = self.golf_courses.map { |golf_course| golf_course.name }
     golf_courses_names.max_by { |gc| golf_courses_names.count(gc) }
   end
