@@ -1,6 +1,7 @@
 class RoundsController < ApplicationController
 
   before_action :set_round, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user
 
   def index
     if params[:golf_course_id]

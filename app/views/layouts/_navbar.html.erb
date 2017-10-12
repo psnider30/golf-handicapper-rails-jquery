@@ -20,7 +20,7 @@
           <li><%= link_to "Log Out", destroy_golfer_session_path, method: :delete %></li>
         <% else %>
           <li><%= link_to "Sign Up", new_golfer_registration_path%></li>
-          <li><%= link_to "Sign in", new_golfer_session_path%></li>
+          <li><%= link_to "Log in", new_golfer_session_path%></li>
           <li><%= link_to "Sign in with Facebook", golfer_facebook_omniauth_authorize_path %></li>
           <li><%= link_to "Sign in with Google", golfer_google_omniauth_authorize_path %></li>
         <% end %>
