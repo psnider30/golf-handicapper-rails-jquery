@@ -13,7 +13,13 @@ class Round < ApplicationRecord
 
   def display_from_par
     over_under = from_par
-    over_under == 0 ? "Even" : over_under
+    if over_under > 0
+      return '+' + over_under.to_s
+    elsif over_under < 0
+      over_under.to_s
+    else
+      return 'Even'
+    end
   end
 
   def round_index

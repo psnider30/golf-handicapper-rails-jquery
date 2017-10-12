@@ -10,9 +10,9 @@
   <h4>Course Details:</h4>
 
   <p>Holes: <%= @golf_course.holes %></p>
-  <p>Holes: <%= @golf_course.total_par %></p>
-  <p>Holes: <%= @golf_course.course_slope %></p>
-  <p>Holes: <%= @golf_course.course_rating %></p>
+  <p>Total Par: <%= @golf_course.total_par %></p>
+  <p>Course Slope: <%= @golf_course.course_slope %></p>
+  <p>Course rating: <%= @golf_course.course_rating %></p>
 </div><br>
 
 <%= button_to 'Edit Golf Course', edit_golf_course_path, method: 'get' %>

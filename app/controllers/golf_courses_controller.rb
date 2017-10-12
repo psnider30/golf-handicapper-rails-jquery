@@ -4,7 +4,6 @@ class GolfCoursesController < ApplicationController
   before_action :authenticate_user
 
   def index
-    authenticate_user
     @golf_courses = GolfCourse.all
   end
 
