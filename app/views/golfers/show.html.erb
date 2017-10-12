@@ -1,27 +1,37 @@
-<h1>Rounds played by <%= @golfer.name %></h1>
-
 <p id="notice"><%= notice %></p>
 
-<table style='width: 55%'>
-  <thead>
-    <tr>
-      <th align="left"><strong>Golf Course</strong></th>
-      <th align="left"><strong>Score</strong></th>
-      <th align="left"><strong>Over/Under</strong></th>
-      <th align="left"></th>
-    </tr>
-  </thead>
+<h1>Golfer Profile for <%= @golfer.name %> </h1><br>
 
-  <tbody>
-    <% @golfer.rounds.each do |round| %>
+<div>
+  <h3>Index: <%= @golfer.golfer_index if @golfer.rounds_posted > 0 %></h3>
+  <h3>Home Course: <%= @golfer.home_course %></h3>
+  <h4>Email: <%= @golfer.email %></h4>
+  <%= button_to 'Post New Round', new_golfer_round_path(@golfer), method: 'get' if current_golfer == @golfer %>
+</div>
+<br>
+
+<div>
+  <h2>Rounds Posted</h2>
+
+  <table style='width: 45%'>
+    <thead>
       <tr>
-        <td><%= round.golf_course.name %></td>
-        <td><%= round.score %></td>
-        <td><%= round.display_from_par %></td>
-        <td><%= link_to 'edit round', edit_golfer_round_path(@golfer, round) if current_golfer == @golfer %></td>
+        <th align="left"><strong>Golf Course</strong></th>
+        <th align="left"><strong>Score</strong></th>
+        <th align="left"><strong>Over/Under</strong></th>
+        <th align="left"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table><br>
+    </thead>
 
-<%= button_to 'Enter New Round', new_golfer_round_path(@golfer), method: 'get' if current_golfer == @golfer %>
+    <tbody>
+      <% @golfer.rounds.each do |round| %>
+        <tr>
+          <td><%= round.golf_course.name %></td>
+          <td><%= round.score %></td>
+          <td><%= round.display_from_par %></td>
+          <td><%= link_to 'edit round', edit_golfer_round_path(@golfer, round) if current_golfer == @golfer %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,6 +1,6 @@
 <h1>Golfers</h1>
 
-<table style='width: 70%'>
+<table style='width: 65%'>
   <thead>
     <tr>
       <th align="left"><strong>Name</strong></th>
@@ -15,7 +15,7 @@
     <% @golfers.each do |golfer| %>
       <tr>
         <td><%=link_to golfer.name, golfer_path(golfer) %></td>
-        <td><%= golfer.golfer_index %></td>
+        <td><%= golfer.golfer_index if golfer.rounds_posted > 0 %></td>
         <td align="center"><%= golfer.rounds_posted %></td>
         <td><%= golfer.email %></td>
       </tr>

@@ -13,7 +13,7 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <% if logged_in? %>
-          <li><%= link_to "Your rounds, #{current_golfer.name}", golfer_path(current_golfer) %></li>
+          <li><%= link_to "Your Profile, #{current_golfer.name}", golfer_path(current_golfer) %></li>
           <li><%= link_to "Post new Round", new_golfer_round_path(current_golfer) %></li>
           <li><%= link_to "Golf Courses", golf_courses_path %></li>
           <li><%= link_to "Golfers", golfers_path %></li>
