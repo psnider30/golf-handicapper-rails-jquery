@@ -3,15 +3,16 @@
 <h1>Golfer Profile for <%= @golfer.name %> </h1><br>
 
 <div>
-  <h3>Index: <%= @golfer.golfer_index if @golfer.rounds_posted > 0 %></h3>
-  <h3>Course Most Played: <%= @golfer.course_most_played %></h3>
+  <h4>Index: <%= @golfer.golfer_index if @golfer.rounds_posted > 0 %></h4>
+  <h4>Course Most Played: <%= @golfer.course_most_played %></h4>
   <h4>Email: <%= @golfer.email %></h4>
-  <%= button_to 'Post New Round', new_golfer_round_path(@golfer), method: 'get' if current_golfer == @golfer %>
 </div>
 <br>
 
+<%= button_to 'Post New Round', new_golfer_round_path(@golfer), method: 'get' if current_golfer == @golfer %><br>
+
 <div>
-  <h2>Rounds Posted</h2>
+  <h3>Rounds Posted</h3>
 
   <table style='width: 45%'>
     <thead>

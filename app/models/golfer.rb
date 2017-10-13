@@ -37,7 +37,7 @@ validates_presence_of :name
   end
 
   def course_handicap(golf_course)
-    self.golfer_index * (golf_course.course_rating / 113)
+    self.golfer_index * golf_course.course_slope / 113
   end
 
   def rounds_posted

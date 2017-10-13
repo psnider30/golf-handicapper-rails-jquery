@@ -1,6 +1,8 @@
 <p id="notice"><%= notice %></p>
 <h1><%= @golf_course.name %></h1><br>
 
+<h4>Your Course Handicap, <%= current_golfer.name %>: <%= current_golfer.course_handicap(@golf_course).round(1) %></h4><br>
+
 <div>
   <h4>Course Description:</h4>
   <p><%= @golf_course.description %></p>
@@ -13,7 +15,9 @@
   <p>Total Par: <%= @golf_course.total_par %></p>
   <p>Course Slope: <%= @golf_course.course_slope %></p>
   <p>Course rating: <%= @golf_course.course_rating %></p>
-  <p>Low Score: <%= @golf_course.course_lowest_round.score %> by <%= @golf_course.course_lowest_round.golfer.name %></p>
+  <% if @golf_course.rounds.present? %>
+    <p>Low Score: <%= @golf_course.course_lowest_round.score %> by <%= @golf_course.course_lowest_round.golfer.name %></p>
+  <% end %>
 </div><br>
 
 <%= button_to 'Show all Rounds', golf_course_rounds_path(@golf_course), method: 'get' %><br><br>

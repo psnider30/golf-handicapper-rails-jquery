@@ -1,19 +1,20 @@
 <h1>Golf Courses</h1>
 
-<table style='width: 42%'>
+<table style='width: 60%'>
   <thead>
     <tr>
       <th align="left"><strong>Golf Course</strong></th>
-      <th align="left"><strong>Holes</strong></th>
-      <th align="left"><strong>Total Par</strong></th>
-      <th align="left"></th>
+      <th align="center"><strong>Holes</strong></th>
+      <th align="center"><strong>Total Par</strong></th>
+      <th align="center"><strong><%= current_golfer.name %>'s Course Handicap</strong></th>
     </tr>
   </thead>
     <% @golf_courses.each do |golf_course| %>
       <tr>
         <td><%= link_to golf_course.name, golf_course_path(golf_course) %></td>
-        <td><%= golf_course.holes %></td>
-        <td><%= golf_course.total_par %></td>
+        <td align="center"><%= golf_course.holes %></td>
+        <td align="center"><%= golf_course.total_par %></td>
+        <td align="center"><%= current_golfer.course_handicap(golf_course).round(1) %></td>
       </tr>
     <% end %>
   <tbody>

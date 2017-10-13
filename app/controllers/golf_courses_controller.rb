@@ -42,6 +42,7 @@ class GolfCoursesController < ApplicationController
   end
 
   def destroy
+    Round.where(golf_course_id: @golfer.id).destroy_all
     @golf_course.destroy
     redirect_to golf_courses_path, { notice: 'golf course deleted!' }
   end
