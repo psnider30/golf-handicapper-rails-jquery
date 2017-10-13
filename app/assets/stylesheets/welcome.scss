@@ -2,9 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.home-pic {
-  float: left;
-  height: auto;
+#home-pic {
+  margin-top: 10px;
   width: 100%;
-  margin: 10px;
+  height: auto;
+  z-index: 0;
 }

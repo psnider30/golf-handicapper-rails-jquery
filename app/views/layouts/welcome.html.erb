@@ -10,17 +10,12 @@
   </head>
 
   <body>
-
-    <%= render '/layouts/navbar' %>
-
     <div class="spacer">
     </div>
 
-    <div class="container"  role="main">
-
-      <%= yield %>
-
-    </div>
+    <%= render '/layouts/navbar' %>
+    
+    <%= yield %>
 
   </body>
 </html>
