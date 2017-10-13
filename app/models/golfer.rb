@@ -33,7 +33,8 @@ validates_presence_of :name
   end
 
   def golfer_index
-    (self.golfer_round_indexes.inject { |sum, round_index| sum + round_index } / self.rounds.count).round(1)
+    full_index = (self.golfer_round_indexes.inject { |sum, round_index| sum + round_index } / self.rounds.count)
+    index = (full_index * 0.96).round(1)
   end
 
   def course_handicap(golf_course)
