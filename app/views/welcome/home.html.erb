@@ -4,7 +4,7 @@
   <h1>Welcome <%= current_golfer.name if current_golfer %></h1>
 
   <% if logged_in? %>
-    <div>
+    <div class= 'group-info'>
       <h4> Golfers in your Group: <%= @golfers.count %></h4>
       <h4>Most Difficult Course: <%= @golf_courses.highest_course_slope.name %> with course slope of <%= @golf_courses.highest_course_slope.course_slope %></h4>
       <h4>Easiest Course: <%= @golf_courses.lowest_course_slope.name %> with course slope of <%= @golf_courses.lowest_course_slope.course_slope %></h4>
@@ -13,6 +13,6 @@
     </div><br>
   <% end %>
 
-  <div class="home-pic", id='home-pic'>
-    <%= image_tag('Cypress-Point-15.jpg') %>
+  <div class="home-pic">
+    <%= image_tag('Cypress-Point-15-water.jpg', class: 'home-pic-img') %>
   </div>

@@ -30,68 +30,12 @@
 * {
   box-sizing: border-box;
 }
-//
-// body {
-//   padding-top: 70px;
-//   padding-bottom: 30px;
-//   background-color: #fff;
-//    color: #333;
-//    font-family: verdana, arial, helvetica, sans-serif;
-//    font-size: 13px;
-//    line-height: 18px;
-// }
 
-// .theme-dropdown .dropdown-menu {
-//   position: static;
-//   display: block;
-//   margin-bottom: 20px;
-// }
-//
-// .theme-showcase > p > .btn {
-//   margin: 5px 0;
-// }
-//
-// .center {
-//   text-align: center;
-// }
-//
-// .pic, .info {
-//   padding: 10px;
-//   display: inline-block;
-//   background-color: #EEEEEE;
-//   border-radius: 7px;
-//   vertical-align: middle;
-//   margin: 10px;
-// }
-//
 .info {
   height: 290px;
   text-align: left;
 }
-//
-// p, ol, ul, td {
-//   font-family: verdana, arial, helvetica, sans-serif;
-//   font-size: 13px;
-//   line-height: 18px;
-// }
-//
-// pre {
-//   background-color: #eee;
-//   padding: 10px;
-//   font-size: 11px;
-// }
-//
-// a {
-//   color: #000;
-//   &:visited {
-//     color: #666;
-//   }
-//   &:hover {
-//     color: #fff;
-//     background-color: #000;
-//   }
-// }
-//
+
 div {
   &.field, &.actions {
     margin-bottom: 10px;
@@ -99,6 +43,7 @@ div {
 }
 
 #notice {
+  margin-top: 15px;
   color: green;
 }
 

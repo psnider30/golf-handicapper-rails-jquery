@@ -2,9 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#home-pic {
-  margin-top: 10px;
+
+.home-pic-img {
+  display: block;
+  margin: auto;
   width: 100%;
   height: auto;
-  z-index: 0;
+}
+
+.group-info {
+  margin: auto;
 }
