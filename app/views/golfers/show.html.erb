@@ -1,11 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Golfer Profile for <%= @golfer.name %> </h1><br>
-
+<h4>Email: <%= @golfer.email %></h4>
 <div>
-  <h4>Index: <%= @golfer.golfer_index if @golfer.rounds_posted > 0 %></h4>
-  <h4>Course Most Played: <%= @golfer.course_most_played %></h4>
-  <h4>Email: <%= @golfer.email %></h4>
+  <h4>Index: <%= @golfer.golfer_index if @golfer.rounds.any? %></h4>
+  <h4>Course Most Played: <%= @golfer.course_most_played if @golfer.rounds.any? %></h4>
+
 </div>
 <br>
 

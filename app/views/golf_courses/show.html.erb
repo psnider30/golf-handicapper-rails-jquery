@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 <h1><%= @golf_course.name %></h1><br>
 
-<h4>Your Course Handicap, <%= current_golfer.name %>: <%= current_golfer.course_handicap(@golf_course).round(1) %></h4><br>
+<% if current_golfer.rounds.any? %>
+  <h4>Your Course Handicap, <%= current_golfer.name %>: <%= current_golfer.course_handicap(@golf_course).round(1) %></h4><br>
+<% end %>
 
 <div>
   <h4>Course Description:</h4>

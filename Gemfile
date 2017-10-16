@@ -66,6 +66,7 @@ end
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-google'
+gem "omniauth-google-oauth2", "~> 0.5.2"
 gem 'dotenv-rails'
 gem 'friendly_id'
 gem 'jquery-rails'

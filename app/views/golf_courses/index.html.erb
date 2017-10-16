@@ -15,7 +15,7 @@
         <td><%= link_to golf_course.name, golf_course_path(golf_course) %></td>
         <td align="center"><%= golf_course.holes %></td>
         <td align="center"><%= golf_course.total_par %></td>
-        <td align="center"><%= current_golfer.course_handicap(golf_course).round(1) %></td>
+        <td align="center"><%= current_golfer.course_handicap(golf_course).round(1) if current_golfer.rounds.any? %></td>
       </tr>
     <% end %>
   <tbody>

@@ -3,12 +3,12 @@ class Golfer < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [:facebook, :google]
+         :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
 
-validates_presence_of :name
+  validates_presence_of :name
 
- has_many :rounds
- has_many :golf_courses, through: :rounds
+  has_many :rounds
+  has_many :golf_courses, through: :rounds
 
    def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |golfer|
@@ -18,8 +18,12 @@ validates_presence_of :name
     end
   end
 
+  def self.all_with_round
+    self.all.select { |golfer| golfer.rounds.any? }
+  end
+
   def self.lowest_index
-    self.all.min_by(&:golfer_index)
+    all_with_round.min_by(&:golfer_index)
   end
 
   def golfer_round_indexes
@@ -33,12 +37,14 @@ validates_presence_of :name
   end
 
   def golfer_index
-    full_index = (self.golfer_round_indexes.inject { |sum, round_index| sum + round_index } / self.rounds.count)
-    index = (full_index * 0.96).round(1)
+    if self.rounds.any?
+      full_index = (self.golfer_round_indexes.inject { |sum, round_index| sum + round_index } / self.rounds.count)
+      index = (full_index * 0.96).round(1)
+    end
   end
 
   def course_handicap(golf_course)
-    self.golfer_index * golf_course.course_slope / 113
+    self.golfer_index * golf_course.course_slope / 113 if self.golfer_index
   end
 
   def rounds_posted
