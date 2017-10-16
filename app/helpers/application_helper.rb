@@ -12,4 +12,8 @@ module ApplicationHelper
     redirect_to golfer_path(current_golfer) if resource.golfer != current_golfer
   end
 
+  def authenticae_admin
+    redirect_to root_url, { notice: 'Only the admin can delete a golf course'} if current_golfer.id != 1
+  end
+
 end

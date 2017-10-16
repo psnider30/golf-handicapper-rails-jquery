@@ -2,7 +2,10 @@ class GolfCourse < ApplicationRecord
 
   validates_presence_of :name, :description, :holes, :total_par, :course_slope, :course_rating
   validates_uniqueness_of :name
-  validates :holes, inclusion: { in: [9, 18] }
+  validates :holes, numericality: { equal_to: 18 }
+  validates :total_par, numericality: { greater_than: 62 }
+  validates :course_rating, numericality: { greater_than: 60 }
+  validates :course_slope, numericality: { greater_than: 99 }
 
   has_many :rounds
   has_many :golfers, through: :rounds

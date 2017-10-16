@@ -1,18 +1,31 @@
+<% if golf_course.errors.any? %>
+  <div id="error_explanation">
+    <h4><%= pluralize(golf_course.errors.count, 'error') %>
+    prohibited this golf course from being saved:</h4>
+
+    <ul>
+      <% golf_course.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for golf_course do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %><br>
 
   <%= f.label :holes %>
-  <%= f.number_field :holes %><br>
+  <%= f.number_field :holes, value: 18 %><br>
 
   <%= f.label :total_par %>
   <%= f.number_field :total_par %><br>
 
-  <%= f.label :course_slope %>
-  <%= f.number_field :course_slope %><br>
-
   <%= f.label :course_rating %>
-  <%= f.number_field :course_rating, class: :text_field, :step => 0.1 %>
+  <%= f.number_field :course_rating, class: :text_field, :step => 0.1 %><br>
+
+  <%= f.label :course_slope %>
+  <%= f.number_field :course_slope %><br><br>
 
   <p>Description:</p>
   <%= f.text_area :description, { rows: 5, cols: 60} %><br><br>
