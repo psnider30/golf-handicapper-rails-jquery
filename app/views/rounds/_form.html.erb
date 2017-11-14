@@ -1,3 +1,16 @@
+<% if round.errors.any? %>
+  <div id="error_explanation">
+    <h4><%= pluralize(round.errors.count, 'error') %>
+    prohibited this round from being saved:</h4>
+
+    <ul>
+      <% round.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for([current_golfer, round])  do |f| %>
 
   <%= f.label :score %>
@@ -6,16 +19,16 @@
   <%= f.hidden_field :golfer_id, value: current_golfer.id %><br><br>
 
   <strong>Select Exisitng Golf Course</strong><br>
-  <%= f.collection_select(:golf_course_id, GolfCourse.all, :id, :name )%>
+  <%= f.collection_select(:golf_course_id, GolfCourse.all, :id, :name, { include_blank: true })%>
   <br><br>
 
-  <strong>Enter New Golf Course</strong><br>
-  <%= f.fields_for :golf_course, GolfCourse.new do |golf_course_fields| %>
+  <strong>OR: Enter New Golf Course</strong><br>
+  <%= f.fields_for :golf_course, golf_course do |golf_course_fields| %>
     <%= golf_course_fields.label :name %>
     <%= golf_course_fields.text_field :name %><br>
 
     <%= golf_course_fields.label :holes %>
-    <%= golf_course_fields.number_field :holes, value: 18 %><br>
+    <%= golf_course_fields.number_field :holes %><br>
 
     <%= golf_course_fields.label :total_par %>
     <%= golf_course_fields.number_field :total_par %><br>
@@ -28,7 +41,7 @@
 
     <p><strong> Description:</strong></p>
     <%= golf_course_fields.text_area :description, { rows: 5, cols: 60} %><br><br>
-  <% end %>
+    <% end %>
   <br><br>
 
   <%= f.submit %>

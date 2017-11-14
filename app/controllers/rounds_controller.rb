@@ -16,6 +16,7 @@ class RoundsController < ApplicationController
 
   def new
     @round = Round.new
+    @golf_course = GolfCourse.new
   end
 
   def create
@@ -57,6 +58,7 @@ class RoundsController < ApplicationController
   end
 
   def round_params
-    params.require(:round).permit(:score, :golfer_id, :golf_course_id)
+    params.require(:round).permit(:score, :golfer_id, :golf_course_id,
+      golf_course_attributes: [:name, :description, :holes, :total_par, :course_slope, :course_rating])
   end
 end

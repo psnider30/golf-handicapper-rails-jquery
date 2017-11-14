@@ -5,6 +5,19 @@ class Round < ApplicationRecord
   belongs_to :golfer
   belongs_to :golf_course
 
+  def golf_course_attributes=(golf_course_attributes)
+    # Only checking for name & course_slope since model already validates_presence_of all attributes
+    if golf_course_attributes[:name].present? && golf_course_attributes[:course_rating].present?
+
+      golf_course = GolfCourse.find_or_create_by(name: golf_course_attributes[:name],
+        description: golf_course_attributes[:description], holes: golf_course_attributes[:holes],
+        total_par: golf_course_attributes[:total_par], course_slope: golf_course_attributes[:course_slope],
+        course_rating: golf_course_attributes[:course_rating])
+
+      self.golf_course = golf_course
+    end
+  end
+
   def self.low_round_score
     self.order(:score).first
   end
