@@ -3,8 +3,33 @@
   <%= f.label :score %>
   <%= f.number_field :score %><br>
 
-  <%= f.collection_select(:golf_course_id, GolfCourse.all, :id, :name )%>
   <%= f.hidden_field :golfer_id, value: current_golfer.id %><br><br>
-  <%= f.submit %>
 
+  <strong>Select Exisitng Golf Course</strong><br>
+  <%= f.collection_select(:golf_course_id, GolfCourse.all, :id, :name )%>
+  <br><br>
+
+  <strong>Enter New Golf Course</strong><br>
+  <%= f.fields_for :golf_course, GolfCourse.new do |golf_course_fields| %>
+    <%= golf_course_fields.label :name %>
+    <%= golf_course_fields.text_field :name %><br>
+
+    <%= golf_course_fields.label :holes %>
+    <%= golf_course_fields.number_field :holes, value: 18 %><br>
+
+    <%= golf_course_fields.label :total_par %>
+    <%= golf_course_fields.number_field :total_par %><br>
+
+    <%= golf_course_fields.label :course_rating %>
+    <%= golf_course_fields.number_field :course_rating, class: :text_field, :step => 0.1 %><br>
+
+    <%= golf_course_fields.label :course_slope %>
+    <%= golf_course_fields.number_field :course_slope %><br><br>
+
+    <p><strong> Description:</strong></p>
+    <%= golf_course_fields.text_area :description, { rows: 5, cols: 60} %><br><br>
+  <% end %>
+  <br><br>
+
+  <%= f.submit %>
 <% end %>
