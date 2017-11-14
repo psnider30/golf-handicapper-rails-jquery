@@ -10,6 +10,7 @@
       <th align="center"><strong><%= current_golfer.name %>'s Course Handicap</strong></th>
     </tr>
   </thead>
+  <tbody>
     <% @golf_courses.each do |golf_course| %>
       <tr>
         <td><%= link_to golf_course.name, golf_course_path(golf_course) %></td>
@@ -18,7 +19,7 @@
         <td align="center"><%= current_golfer.course_handicap(golf_course).round(1) if current_golfer.rounds.any? %></td>
       </tr>
     <% end %>
-  <tbody>
+  </tbody>
 </table><br>
 
 <%= button_to 'Create New Golf Course', new_golf_course_path, method: 'get' %>
