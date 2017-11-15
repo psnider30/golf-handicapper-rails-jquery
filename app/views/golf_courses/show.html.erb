@@ -10,12 +10,13 @@
   <p><%= @golf_course.description %></p>
 </div><br>
 
-<div>
-  <h5>Tags</h5>
+<div class='tags-list'>
+  <ul>
     <% @golf_course.tags.each do |tag|%>
-      <%= tag.name %>, #clean up so no comma at end
+      <li><%= tag.name %></li>
     <% end %>
-</div>
+  </ul>
+</div><br>
 
 <div>
   <h4>Course Details:</h4>

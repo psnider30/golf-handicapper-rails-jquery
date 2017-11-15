@@ -43,6 +43,22 @@ div {
   }
 }
 
+.tags-list ul, .tags-list ul {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.tags-list li {
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.tags-list li:before {
+  content: "\2605";
+}
+
+
 #notice {
   margin-top: 15px;
   color: green;
