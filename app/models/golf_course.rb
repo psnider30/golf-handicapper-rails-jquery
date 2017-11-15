@@ -12,6 +12,17 @@ class GolfCourse < ApplicationRecord
   has_many :golf_course_tags
   has_many :tags, through: :golf_course_tags
 
+  def tags_attributes=(tag_attributes)
+    tag_attributes.values.each do |tag_attribute|
+      if tag_attribute[:name].present?
+        tag = Tag.find_or_create_by(name: tag_attribute[:name])
+        if !self.tags.include?(tag)
+          self.golf_course_tags.build(tag: tag)
+        end
+      end
+    end
+  end
+
   def self.lowest_course_slope
       self.order(:course_slope).first
   end

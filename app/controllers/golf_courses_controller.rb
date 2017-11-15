@@ -28,11 +28,6 @@ class GolfCoursesController < ApplicationController
   def edit
   end
 
-  def is_owner?(resource)
-    redirect_to golfer_path(current_golfer) if resource.golfer != current_golfer
-  end
-
-
   def update
     if @golf_course.update(golf_course_params)
       redirect_to @golf_course, { notice: 'golf course updated successfully.' }
@@ -47,6 +42,10 @@ class GolfCoursesController < ApplicationController
     redirect_to golf_courses_path, { notice: 'golf course deleted!' }
   end
 
+  def is_owner?(resource)
+    redirect_to golfer_path(current_golfer) if resource.golfer != current_golfer
+  end
+
   private
 
   def set_golf_course
@@ -54,7 +53,8 @@ class GolfCoursesController < ApplicationController
   end
 
   def golf_course_params
-    params.require(:golf_course).permit(:name, :description, :holes, :total_par, :course_slope, :course_rating)
+    params.require(:golf_course).permit(:name, :description, :holes, :total_par, :course_slope,
+      :course_rating, tag_ids: [], tags_attributes: [:name])
   end
 
 end
