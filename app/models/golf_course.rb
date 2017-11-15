@@ -9,6 +9,8 @@ class GolfCourse < ApplicationRecord
 
   has_many :rounds
   has_many :golfers, through: :rounds
+  has_many :golf_course_tags
+  has_many :tags, through: :golf_course_tags
 
   def self.lowest_course_slope
       self.order(:course_slope).first

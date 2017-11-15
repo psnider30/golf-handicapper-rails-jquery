@@ -11,6 +11,13 @@
 </div><br>
 
 <div>
+  <h5>Tags</h5>
+    <% @golf_course.tags.each do |tag|%>
+      <%= tag.name %>, #clean up so no comma at end
+    <% end %>
+</div>
+
+<div>
   <h4>Course Details:</h4>
 
   <p>Holes: <%= @golf_course.holes %></p>

@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009233531) do
+ActiveRecord::Schema.define(version: 20171115024036) do
+
+  create_table "golf_course_tags", force: :cascade do |t|
+    t.integer "golf_course_id"
+    t.integer "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "golf_courses", force: :cascade do |t|
     t.string "name"
@@ -49,6 +56,12 @@ ActiveRecord::Schema.define(version: 20171009233531) do
     t.integer "score"
     t.integer "golfer_id"
     t.integer "golf_course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
