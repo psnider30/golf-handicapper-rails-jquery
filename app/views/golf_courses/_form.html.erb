@@ -34,6 +34,11 @@
   <%= f.fields_for :tags, golf_course.tags.build do |tag_builder| %>
     <%= tag_builder.label 'Add Tag' %>
     <%= tag_builder.text_field :name %>
+  <% end %><br>
+
+  <%= f.fields_for :tags, golf_course.tags.build do |tag_builder| %>
+    <%= tag_builder.label 'Add Tag' %>
+    <%= tag_builder.text_field :name %>
   <% end %><br><br>
 
   <p><strong> Description:</strong></p>

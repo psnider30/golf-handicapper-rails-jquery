@@ -22,27 +22,34 @@
   <%= f.collection_select(:golf_course_id, GolfCourse.all, :id, :name, { include_blank: true })%>
   <br><br>
 
-  <strong>OR: Enter New Golf Course</strong><br>
-  <%= f.fields_for :golf_course, golf_course do |golf_course_fields| %>
-    <%= golf_course_fields.label :name %>
-    <%= golf_course_fields.text_field :name %><br>
+  <% if params[:action] == 'new' %>
+    <strong>OR: Enter New Golf Course</strong><br>
+    <%= f.fields_for :golf_course, golf_course do |golf_course_fields| %>
+      <%= golf_course_fields.label :name %>
+      <%= golf_course_fields.text_field :name %><br>
 
-    <%= golf_course_fields.label :holes %>
-    <%= golf_course_fields.number_field :holes %><br>
+      <%= golf_course_fields.label :holes %>
+      <%= golf_course_fields.number_field :holes %><br>
 
-    <%= golf_course_fields.label :total_par %>
-    <%= golf_course_fields.number_field :total_par %><br>
+      <%= golf_course_fields.label :total_par %>
+      <%= golf_course_fields.number_field :total_par %><br>
 
-    <%= golf_course_fields.label :course_rating %>
-    <%= golf_course_fields.number_field :course_rating, class: :text_field, :step => 0.1 %><br>
+      <%= golf_course_fields.label :course_rating %>
+      <%= golf_course_fields.number_field :course_rating, class: :text_field, :step => 0.1 %><br>
 
-    <%= golf_course_fields.label :course_slope %>
-    <%= golf_course_fields.number_field :course_slope %><br><br>
+      <%= golf_course_fields.label :course_slope %>
+      <%= golf_course_fields.number_field :course_slope %><br><br>
 
-    <p><strong> Description:</strong></p>
-    <%= golf_course_fields.text_area :description, { rows: 5, cols: 60} %><br><br>
+      <%= golf_course_fields.fields_for :tags, golf_course.tags.build do |tag_builder| %>
+        <%= tag_builder.label 'Add Tag' %>
+        <%= tag_builder.text_field :name %>
+      <% end %><br>
+
+      <p><strong> Description:</strong></p>
+      <%= golf_course_fields.text_area :description, { rows: 5, cols: 60} %><br><br>
     <% end %>
-  <br><br>
+    <br><br>
+  <% end %>
 
   <%= f.submit %>
 <% end %>

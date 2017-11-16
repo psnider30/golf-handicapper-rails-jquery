@@ -32,6 +32,7 @@ class RoundsController < ApplicationController
 
   def edit
     authenticate_owner(@round)
+    @golf_course = @round.golf_course
   end
 
   def update
@@ -59,6 +60,6 @@ class RoundsController < ApplicationController
 
   def round_params
     params.require(:round).permit(:score, :golfer_id, :golf_course_id,
-      golf_course_attributes: [:name, :description, :holes, :total_par, :course_slope, :course_rating])
+      golf_course_attributes: [:name, :description, :holes, :total_par, :course_slope, :course_rating, tags_attributes: [:name]])
   end
 end
