@@ -50,7 +50,16 @@ class Round < ApplicationRecord
   end
 
   def display_from_par
-    over_under = from_par
+
+    display_from_par_format(from_par)
+  end
+
+  def display_net_from_par
+    display_from_par_format(net_from_par) if self.golfer.golfer_index
+  end
+
+  def display_from_par_format(type)
+    over_under = type
     if over_under > 0
       return '+' + over_under.to_s
     elsif over_under < 0

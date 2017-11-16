@@ -15,7 +15,7 @@
     <% @golfers.each do |golfer| %>
       <tr>
         <td><%=link_to golfer.name, golfer_path(golfer) %></td>
-        <td><%= golfer.golfer_index if golfer.rounds_posted > 0 %></td>
+        <td><%= golfer.golfer_index if golfer.golfer_index %></td>
         <td align="center"><%= golfer.rounds_posted %></td>
         <td><%= golfer.email %></td>
       </tr>

@@ -37,13 +37,10 @@ class GolfCoursesController < ApplicationController
   end
 
   def destroy
+    authenticate_admin
     Round.where(golf_course_id: @golf_course.id).destroy_all
     @golf_course.destroy
     redirect_to golf_courses_path, { notice: 'golf course deleted!' }
-  end
-
-  def is_owner?(resource)
-    redirect_to golfer_path(current_golfer) if resource.golfer != current_golfer
   end
 
   private

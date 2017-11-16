@@ -5,6 +5,11 @@
   <h3>Golfer: <%= @round.golfer.name %></h3>
   <h3>Score: <%= @round.score %></h3>
   <h4>Over/Under: <%= @round.display_from_par %></h4>
+  <% if @round.golfer.golfer_index %>
+    <h4>Net from Par: <%= @round.display_net_from_par %></h4>
+  <% else %>
+    <h4>Your handicap will be established after 2 rounds</h4>
+  <% end %>
 </div><br>
 
 <div>
