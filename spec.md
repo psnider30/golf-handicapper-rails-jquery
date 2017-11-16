@@ -15,7 +15,8 @@ Specs:
 
 - [x] Include a class level ActiveRecord scope method (GolfCourse.highest_course_slope, URL: root, GolfCourse.lowest_course_slope, URL: root,
       GolfCourse.course_lowest_round, URL: /golf_courses/:id)
-- [x] Include a nested form writing to an associated model using a custom attribute writer (form URL: /golfers/:golfer_id/rounds/new, GolfCourse)
+- [x] Include a nested form writing to an associated model using a custom attribute writer (form URL: /golfers/:golfer_id/rounds/new for GolfCourse,
+        and golf_courses/new or golf_courses/edit for Tag)
 - [x] Include signup (Devise)
 - [x] Include login (Devise)
 - [x] Include logout (Devise)

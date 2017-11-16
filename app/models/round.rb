@@ -12,7 +12,6 @@ class Round < ApplicationRecord
         description: golf_course_attributes[:description], holes: golf_course_attributes[:holes],
         total_par: golf_course_attributes[:total_par], course_slope: golf_course_attributes[:course_slope],
         course_rating: golf_course_attributes[:course_rating])
-        binding.pry
       golf_course.tags.find_or_create_by(name: golf_course_attributes[:tags_attributes]['0']['name'])
       self.golf_course = golf_course
     end
@@ -24,7 +23,8 @@ class Round < ApplicationRecord
 
   # low gross round
   def self.low_round_from_par
-    self.all.min_by(&:from_par)
+    rounds = self.all.includes(:golf_course, :golfer)
+    rounds.min_by(&:from_par)
   end
 
   def self.low_round_net
