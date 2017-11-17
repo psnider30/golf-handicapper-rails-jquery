@@ -12,8 +12,9 @@ class Round < ApplicationRecord
         description: golf_course_attributes[:description], holes: golf_course_attributes[:holes],
         total_par: golf_course_attributes[:total_par], course_slope: golf_course_attributes[:course_slope],
         course_rating: golf_course_attributes[:course_rating])
-      golf_course.tags.find_or_create_by(name: golf_course_attributes[:tags_attributes]['0']['name'])
+      tag = Tag.find_or_initialize_by(name: golf_course_attributes[:tags_attributes]['0']['name'])
       self.golf_course = golf_course
+      self.golf_course.tags << tag
     end
   end
 
