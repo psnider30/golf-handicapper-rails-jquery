@@ -4,6 +4,7 @@ class Round < ApplicationRecord
 
   belongs_to :golfer
   belongs_to :golf_course
+  validates_associated :golf_co
 
   def golf_course_attributes=(golf_course_attributes)
     # Only checking for name & course_slope since model already validates_presence_of all attributes
