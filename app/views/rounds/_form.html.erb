@@ -22,7 +22,7 @@
   <%= f.collection_select(:golf_course_id, GolfCourse.all, :id, :name, { include_blank: true })%>
   <br><br>
 
-  <% if params[:action] == 'new' %>
+  <% if params[:action] == 'new' || params[:action] == 'create' %>
     <strong>OR: Enter New Golf Course</strong><br>
     <%= f.fields_for :golf_course, golf_course do |golf_course_fields| %>
       <%= golf_course_fields.label :name %>

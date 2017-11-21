@@ -4,7 +4,13 @@ class Round < ApplicationRecord
 
   belongs_to :golfer
   belongs_to :golf_course
-  validates_associated :golf_co
+  #validates_associated :golf_course
+
+  validate do |round|
+    round.golf_course.errors.full_messages.each do |msg|
+      errors[:base] << "Golf Course Error: #{msg}"
+    end
+  end
 
   def golf_course_attributes=(golf_course_attributes)
     # Only checking for name & course_slope since model already validates_presence_of all attributes
