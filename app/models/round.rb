@@ -7,8 +7,10 @@ class Round < ApplicationRecord
   #validates_associated :golf_course
 
   validate do |round|
-    round.golf_course.errors.full_messages.each do |msg|
-      errors[:base] << "Golf Course Error: #{msg}"
+    if round.golf_course
+      round.golf_course.errors.full_messages.each do |msg|
+        errors[:base] << "Golf Course Error: #{msg}"
+      end
     end
   end
 
@@ -19,9 +21,19 @@ class Round < ApplicationRecord
         description: golf_course_attributes[:description], holes: golf_course_attributes[:holes],
         total_par: golf_course_attributes[:total_par], course_slope: golf_course_attributes[:course_slope],
         course_rating: golf_course_attributes[:course_rating])
-      tag = Tag.find_or_initialize_by(name: golf_course_attributes[:tags_attributes]['0']['name'])
       self.golf_course = golf_course
-      self.golf_course.tags << tag
+
+      tag_name = golf_course_attributes[:tags_attributes]['0']['name']
+      if tag_name.present?
+        tag = Tag.find_or_initialize_by(name: tag_name)
+        golf_course.tags << tag
+      end
+      comment_content = golf_course_attributes[:golf_course_comments_attributes]['0']['content']
+      if comment_content.present?
+        golfer_id = golf_course_attributes[:golf_course_comments_attributes]['0']['golfer_id']
+        comment = GolfCourseComment.new(content: comment_content, golfer_id: golfer_id)
+        golf_course.golf_course_comments << comment
+      end
     end
   end
 

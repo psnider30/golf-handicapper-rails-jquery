@@ -41,6 +41,12 @@
     <%= tag_builder.text_field :name %>
   <% end %><br><br>
 
+  <%= f.fields_for :golf_course_comments, golf_course.golf_course_comments.build do |comment_builder| %>
+    <%= comment_builder.hidden_field :golfer_id, value: current_golfer.id %>
+    <%= comment_builder.label 'Add Comment' %>
+    <%= comment_builder.text_area :content %>
+  <% end %><br>
+
   <p><strong> Description:</strong></p>
   <%= f.text_area :description, { rows: 5, cols: 60} %>
 

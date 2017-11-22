@@ -40,6 +40,12 @@
       <%= golf_course_fields.label :course_slope %>
       <%= golf_course_fields.number_field :course_slope %><br><br>
 
+      <%= golf_course_fields.fields_for  :golf_course_comments, golf_course.golf_course_comments.build do |comment_builder| %>
+        <%= comment_builder.hidden_field :golfer_id, value: current_golfer.id %>
+        <%= comment_builder.label 'Add Comment' %>
+        <%= comment_builder.text_area :content %>
+      <% end %><br>
+
       <%= golf_course_fields.fields_for :tags, golf_course.tags.build do |tag_builder| %>
         <%= tag_builder.label 'Add Tag' %>
         <%= tag_builder.text_field :name %>

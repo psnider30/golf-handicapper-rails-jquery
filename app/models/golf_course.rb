@@ -1,5 +1,5 @@
 class GolfCourse < ApplicationRecord
-  
+
   validates_presence_of :name, :description, :holes, :total_par, :course_slope, :course_rating
   validates_uniqueness_of :name
   validates :holes, numericality: { equal_to: 18 }
@@ -11,6 +11,15 @@ class GolfCourse < ApplicationRecord
   has_many :golfers, through: :rounds
   has_many :golf_course_tags
   has_many :tags, through: :golf_course_tags
+  has_many :golf_course_comments
+
+  def golf_course_comments_attributes=(golf_course_comments_attributes)
+    golf_course_comments_attributes.values.each do |golf_course_comments_attribute|
+      if golf_course_comments_attribute[:content].present?
+        self.golf_course_comments.build(content: golf_course_comments_attribute[:content], golfer_id:  golf_course_comments_attribute[:golfer_id])
+      end
+    end
+  end
 
   def tags_attributes=(tag_attributes)
     tag_attributes.values.each do |tag_attribute|

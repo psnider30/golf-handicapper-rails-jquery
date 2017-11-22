@@ -14,6 +14,7 @@ class GolfersController < ApplicationController
     can_delete_profile
     @golfer = Golfer.find(params[:id])
     Round.where(golfer_id: @golfer.id).destroy_all
+    GolfCourseComment.where(golfer_id: @golfer.id).destroy_all
     @golfer.destroy
   end
 

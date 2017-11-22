@@ -17,7 +17,6 @@ class GolfCoursesController < ApplicationController
 
   def create
     @golf_course = GolfCourse.new(golf_course_params)
-
     if @golf_course.save
       redirect_to @golf_course, { notice: 'golf course created successfully.' }
     else
@@ -39,6 +38,7 @@ class GolfCoursesController < ApplicationController
   def destroy
     authenticate_admin
     Round.where(golf_course_id: @golf_course.id).destroy_all
+    GolfCourseComment.where(golf_course_id: @golf_course.id).destroy_all
     @golf_course.destroy
     redirect_to golf_courses_path, { notice: 'golf course deleted!' }
   end
@@ -51,7 +51,7 @@ class GolfCoursesController < ApplicationController
 
   def golf_course_params
     params.require(:golf_course).permit(:name, :description, :holes, :total_par, :course_slope,
-      :course_rating, tag_ids: [], tags_attributes: [:name])
+      :course_rating, tag_ids: [], tags_attributes: [:name], golf_course_comments_attributes: [:content, :golfer_id])
   end
 
 end

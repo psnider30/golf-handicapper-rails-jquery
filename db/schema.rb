@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171116050808) do
+ActiveRecord::Schema.define(version: 20171121210750) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(version: 20171116050808) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "golf_course_comments", force: :cascade do |t|
+    t.string "content"
+    t.integer "golfer_id"
+    t.integer "golf_course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "golf_course_tags", force: :cascade do |t|

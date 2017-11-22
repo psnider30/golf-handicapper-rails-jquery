@@ -30,6 +30,17 @@
   <% end %>
 </div><br>
 
+<div>
+  <% if @golf_course.golf_course_comments.present? %>
+    <h4>Comments</h4>
+    <% @golf_course.golf_course_comments.each do |comment| %>
+      <ul>
+        <li><%= comment.content %></li>
+      </ul>
+    <% end %>
+  <% end %>
+</div>
+
 <%= button_to 'Show all Rounds', golf_course_rounds_path(@golf_course), method: 'get' %><br><br>
 <%= button_to 'Edit Golf Course', edit_golf_course_path, method: 'get' %><br>
 <%= button_to('Delete Golf Course', golf_course_path(@golf_course), method: 'delete') if current_golfer.id == 1 %>

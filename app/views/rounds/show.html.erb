@@ -17,6 +17,14 @@
   <p><%= @round.golf_course.description %></p>
 </div>
 
+<div class='tags-list'>
+  <ul>
+    <% @round.golf_course.tags.each do |tag|%>
+      <li><%= tag.name %></li>
+    <% end %>
+  </ul>
+</div><br>
+
 <div>
   <h4>Course Details:</h4>
   <p>Course Name: <%= @round.golf_course.name %> </p>
@@ -24,6 +32,17 @@
   <p>Par: <%= @round.golf_course.total_par %></p>
   <p>Course Slope: <%= @round.golf_course.course_slope %></p>
   <p>Course Rating: <%= @round.golf_course.course_rating %></p>
+</div>
+
+<div>
+  <% if @round.golf_course.golf_course_comments.present? %>
+    <h4>Comments</h4>
+    <% @round.golf_course.golf_course_comments.each do |comment| %>
+      <ul>
+        <li><%= comment.content %></li>
+      </ul>
+    <% end %>
+  <% end %>
 </div>
 
 
