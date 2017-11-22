@@ -39,7 +39,7 @@
     <h4>Comments</h4>
     <% @round.golf_course.golf_course_comments.each do |comment| %>
       <ul>
-        <li><%= comment.content %></li>
+        <li><%= comment.content %> -  by <%= comment.golfer.name %> on <%= comment.created_at.strftime('%m/%d/%Y') %></li>
       </ul>
     <% end %>
   <% end %>

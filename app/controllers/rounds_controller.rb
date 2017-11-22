@@ -60,6 +60,7 @@ class RoundsController < ApplicationController
 
   def round_params
     params.require(:round).permit(:score, :golfer_id, :golf_course_id,
-      golf_course_attributes: [:name, :description, :holes, :total_par, :course_slope, :course_rating, tags_attributes: [:name], golf_course_comments_attributes: [:content, :golfer_id]])
+      golf_course_attributes: [:name, :description, :holes, :total_par, :course_slope, :course_rating,
+        tags_attributes: [:name], golf_course_comments_attributes: [:content, :golfer_id]])
   end
 end
