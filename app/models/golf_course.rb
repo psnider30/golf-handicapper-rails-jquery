@@ -1,5 +1,7 @@
+require 'memoist'
 class GolfCourse < ApplicationRecord
-
+  extend Memoist
+  
   validates_presence_of :name, :description, :holes, :total_par, :course_slope, :course_rating
   validates_uniqueness_of :name
   validates :holes, numericality: { equal_to: 18 }

@@ -3,12 +3,11 @@ class WelcomeController < ApplicationController
   def home
     @golfer = current_golfer
     @golfers = Golfer.all
-    @golf_courses = GolfCourse.all
+    @easiest_course = GolfCourse.lowest_course_slope
+    @hardest_course = GolfCourse.highest_course_slope
     @low_round_gross = Round.low_round_from_par
     @low_golfer = Golfer.lowest_index
-    #@low_round_net = Round.low_round_net
-    #@low_round_net = DelayedJob.new.get_low_net
-
+    @low_round_net = Round.low_round_net
   end
 end
 

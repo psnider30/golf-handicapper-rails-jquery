@@ -14,16 +14,16 @@
 <div>
   <h3>Rounds Posted</h3>
 
-  <table style='width: 85%'>
+  <table style='width: 70%'>
     <thead>
       <tr>
-        <th align="left"><strong>Golf Course</strong></th>
-        <th align="left"><strong>Score  </strong></th>
-        <th align="left"><strong>Over/Under</strong></th>
-        <th align="left"><strong>Net Score</strong></th>
-        <th align="left"><strong>Net O/U</strong></th>
-        <th align="left"><strong>Post Date</strong></th>
-        <th align="right"></th>
+        <th><strong>Golf Course</strong></th>
+        <th><strong>Score</strong></th>
+        <th><strong>Over/Under</strong></th>
+        <th><strong>Net Score</strong></th>
+        <th><strong>Net O/U</strong></th>
+        <th><strong>Post Date</strong></th>
+        <th></th>
       </tr>
     </thead>
 
@@ -31,7 +31,7 @@
       <% @golfer.rounds.each do |round| %>
         <tr>
           <td><%= link_to round.golf_course.name, golf_course_path(round.golf_course) %></td>
-          <td><%= round.score   %></td>
+          <td><%= round.score %></td>
           <td><%= round.display_from_par %></td>
           <td><%= round.net_score %></td>
           <td><%= round.display_net_from_par %></td>

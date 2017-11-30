@@ -1,5 +1,4 @@
 require 'memoist'
-
 class Round < ApplicationRecord
   extend Memoist
 
@@ -79,28 +78,24 @@ class Round < ApplicationRecord
   # class methods
   # round_index as handicap differential is just the calculated index for a single round
 
-  def self.low_round_score
-    @low_round_score ||= self.order(:score).first
-  end
+    def self.low_round_score
+      self.order(:score).first
+    end
 
-  # low gross round
-  def self.low_round_from_par
-    @low_round_from_par ||= begin
+    # low gross round
+    def self.low_round_from_par
       rounds = self.all.includes(:golf_course, :golfer)
       rounds.min_by(&:from_par)
     end
-  end
 
-  def self.low_round_net
-    @low_round_net ||= self.rounds_with_golfer_index.min_by(&:net_from_par)
-  end
+    def self.low_round_net
+      self.rounds_with_golfer_index.min_by(&:net_from_par)
+    end
 
-  def self.rounds_with_golfer_index
-    @rounds_with_golfer_index ||= begin
+    def self.rounds_with_golfer_index
       self.all.select do |round|
         round.golfer.golfer_index
       end
     end
-  end
 
 end
