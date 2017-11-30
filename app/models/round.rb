@@ -1,10 +1,12 @@
+require 'memoist'
+
 class Round < ApplicationRecord
+  extend Memoist
 
   validates_presence_of :score, :golfer_id, :golf_course_id
 
   belongs_to :golfer
   belongs_to :golf_course
-  #validates_associated :golf_course
 
   validate do |round|
     if round.golf_course
@@ -37,28 +39,8 @@ class Round < ApplicationRecord
     end
   end
 
-  def self.low_round_score
-    self.order(:score).first
-  end
-
-  # low gross round
-  def self.low_round_from_par
-    rounds = self.all.includes(:golf_course, :golfer)
-    rounds.min_by(&:from_par)
-  end
-
-  def self.low_round_net
-    self.rounds_with_golfer_index.min_by(&:net_from_par)
-  end
-
-  def self.rounds_with_golfer_index
-    self.all.select do |round|
-      round.golfer.golfer_index
-    end
-  end
-
   def net_score
-    self.score - self.golfer.course_handicap(self.golf_course) if self.golfer.golfer_index
+    @net_score ||= self.score - self.golfer.course_handicap(self.golf_course) if self.golfer.golfer_index
   end
 
   def net_from_par
@@ -70,7 +52,6 @@ class Round < ApplicationRecord
   end
 
   def display_from_par
-
     display_from_par_format(from_par)
   end
 
@@ -89,9 +70,37 @@ class Round < ApplicationRecord
     end
   end
 
-  # round_index as handicap differential is just the calculated index for a single round
   def round_index
-    (113 * (self.score - golf_course.course_rating)) / 130
+    @round_index ||= (113 * (self.score - golf_course.course_rating)) / 130
+  end
+
+  memoize :net_score, :net_from_par, :from_par, :display_from_par, :display_net_from_par, :round_index
+
+  # class methods
+  # round_index as handicap differential is just the calculated index for a single round
+
+  def self.low_round_score
+    @low_round_score ||= self.order(:score).first
+  end
+
+  # low gross round
+  def self.low_round_from_par
+    @low_round_from_par ||= begin
+      rounds = self.all.includes(:golf_course, :golfer)
+      rounds.min_by(&:from_par)
+    end
+  end
+
+  def self.low_round_net
+    @low_round_net ||= self.rounds_with_golfer_index.min_by(&:net_from_par)
+  end
+
+  def self.rounds_with_golfer_index
+    @rounds_with_golfer_index ||= begin
+      self.all.select do |round|
+        round.golfer.golfer_index
+      end
+    end
   end
 
 end

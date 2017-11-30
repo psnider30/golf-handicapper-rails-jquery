@@ -33,7 +33,7 @@ class GolfCourse < ApplicationRecord
   end
 
   def self.lowest_course_slope
-      self.order(:course_slope).first
+    self.order(:course_slope).first
   end
 
   def self.highest_course_slope
