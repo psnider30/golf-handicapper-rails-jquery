@@ -68,5 +68,6 @@ class RoundsController < ApplicationController
   def unmemoize_round_variables
     Round.unmemoize_class_methods_variables
     GolfCourse.unmemoize_class_methods_variables
+    Golfer.unmemoize_class_methods_variables
   end
 end

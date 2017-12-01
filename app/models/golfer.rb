@@ -72,7 +72,7 @@ class Golfer < ActiveRecord::Base
       @lowest_index ||= all_with_index.min_by(&:golfer_index)
     end
 
-    def self.unmemoize_class_methods
+    def self.unmemoize_class_methods_variables
       @golfers_count = nil
       @@all_with_index = nil
       @lowest_index = nil
