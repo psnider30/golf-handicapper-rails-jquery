@@ -1,4 +1,6 @@
+require 'memoist'
 class Golfer < ActiveRecord::Base
+  extend Memoist
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -61,5 +63,6 @@ class Golfer < ActiveRecord::Base
     golf_courses_names.max_by { |gc| golf_courses_names.count(gc) }
   end
 
+  memoize :golfer_round_indexes, :golfer_index, :course_handicap, :rounds_posted, :course_most_played
 
 end
