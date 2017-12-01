@@ -1,7 +1,7 @@
 require 'memoist'
 class Golfer < ActiveRecord::Base
   extend Memoist
-  after_save :unmemoize_all
+  after_commit :unmemoize_all
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

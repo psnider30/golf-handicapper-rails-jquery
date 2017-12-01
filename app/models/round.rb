@@ -1,7 +1,7 @@
 require 'memoist'
 class Round < ApplicationRecord
   extend Memoist
-  after_save :unmemoize_all
+  after_commit :unmemoize_all
   validates_presence_of :score, :golfer_id, :golf_course_id
 
   belongs_to :golfer
