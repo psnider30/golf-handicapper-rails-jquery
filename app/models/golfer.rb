@@ -1,6 +1,7 @@
 require 'memoist'
 class Golfer < ActiveRecord::Base
   extend Memoist
+  after_commit :unmemoize_all
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -19,14 +20,6 @@ class Golfer < ActiveRecord::Base
       golfer.name = auth.info.name
       golfer.password = Devise.friendly_token[0,20]
     end
-  end
-
-  def self.all_with_index
-    self.all.select { |golfer| golfer.golfer_index }
-  end
-
-  def self.lowest_index
-    all_with_index.min_by(&:golfer_index)
   end
 
   def golfer_round_indexes
@@ -64,5 +57,20 @@ class Golfer < ActiveRecord::Base
   end
 
   memoize :golfer_round_indexes, :golfer_index, :course_handicap, :rounds_posted, :course_most_played
+
+  #class methods
+  class << self
+    extend Memoist
+    
+    def all_with_index
+      self.all.select { |golfer| golfer.golfer_index }
+    end
+
+    def lowest_index
+      all_with_index.min_by(&:golfer_index)
+    end
+
+    memoize :all_with_index, :lowest_index
+  end
 
 end

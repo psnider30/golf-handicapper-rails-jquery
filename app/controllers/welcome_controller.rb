@@ -1,8 +1,7 @@
 class WelcomeController < ApplicationController
 
   def home
-    @golfer = current_golfer
-    @golfers = Golfer.all
+    @golfers_count = Golfer.all.size
     @easiest_course = GolfCourse.lowest_course_slope
     @hardest_course = GolfCourse.highest_course_slope
     @low_round_gross = Round.low_round_from_par

@@ -1,7 +1,7 @@
 require 'memoist'
 class Round < ApplicationRecord
   extend Memoist
-
+  after_commit :unmemoize_all
   validates_presence_of :score, :golfer_id, :golf_course_id
 
   belongs_to :golfer
@@ -78,24 +78,36 @@ class Round < ApplicationRecord
   # class methods
   # round_index as handicap differential is just the calculated index for a single round
 
-    def self.low_round_score
+  class << self
+    extend Memoist
+
+    def low_round_score
       self.order(:score).first
     end
 
     # low gross round
-    def self.low_round_from_par
+    def low_round_from_par
       rounds = self.all.includes(:golf_course, :golfer)
       rounds.min_by(&:from_par)
     end
 
-    def self.low_round_net
+    def low_round_net
       self.rounds_with_golfer_index.min_by(&:net_from_par)
     end
 
-    def self.rounds_with_golfer_index
+    def rounds_with_golfer_index
       self.all.select do |round|
         round.golfer.golfer_index
       end
     end
+    memoize :low_round_score, :low_round_from_par, :low_round_net, :rounds_with_golfer_index
+  end
+
+
+  # private
+  #
+  # def unmemoize
+  #   @low_round_net = nil
+  # end
 
 end
