@@ -2,7 +2,7 @@ class GolfCoursesController < ApplicationController
 
   before_action :set_golf_course, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user
-
+  after_action :unmemoize_golf_course_variables, only: [:create, :update, :destroy]
 
   def index
     @golf_courses = GolfCourse.all
@@ -52,6 +52,10 @@ class GolfCoursesController < ApplicationController
   def golf_course_params
     params.require(:golf_course).permit(:name, :description, :holes, :total_par, :course_slope,
       :course_rating, tag_ids: [], tags_attributes: [:name], golf_course_comments_attributes: [:content, :golfer_id])
+  end
+
+  def unmemoize_golf_course_variables
+    GolfCourse.unmemoize_class_methods_variables
   end
 
 end

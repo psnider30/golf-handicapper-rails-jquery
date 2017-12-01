@@ -1,7 +1,7 @@
 require 'memoist'
 class GolfCourse < ApplicationRecord
   extend Memoist
-  after_commit :unmemoize_all
+  after_save :unmemoize_all
 
   validates_presence_of :name, :description, :holes, :total_par, :course_slope, :course_rating
   validates_uniqueness_of :name
@@ -39,20 +39,20 @@ class GolfCourse < ApplicationRecord
     self.rounds.order(:score).first
   end
 
+
   memoize :course_lowest_round
 
-  class << self
-    extend Memoist
-    
-    def lowest_course_slope
-      self.order(:course_slope).first
-    end
+  def self.lowest_course_slope
+    @lowest_course_slope ||= self.order(:course_slope).first
+  end
 
-    def highest_course_slope
-      self.order(:course_slope).last
-    end
+  def self.highest_course_slope
+    @highest_course_slope ||= self.order(:course_slope).last
+  end
 
-    memoize :lowest_course_slope, :highest_course_slope
+  def self.unmemoize_class_methods_variables
+    @lowest_course_slope = nil
+    @highest_course_slope = nil
   end
 
 end

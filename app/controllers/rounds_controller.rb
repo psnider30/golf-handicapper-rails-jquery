@@ -2,6 +2,7 @@ class RoundsController < ApplicationController
 
   before_action :set_round, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user, only: [:show, :edit, :update, :destroy]
+  after_action :unmemoize_round_variables, only: [:create, :update, :destroy]
 
   def index
     if params[:golf_course_id]
@@ -62,5 +63,10 @@ class RoundsController < ApplicationController
     params.require(:round).permit(:score, :golfer_id, :golf_course_id,
       golf_course_attributes: [:name, :description, :holes, :total_par, :course_slope, :course_rating,
         tags_attributes: [:name], golf_course_comments_attributes: [:content, :golfer_id]])
+  end
+
+  def unmemoize_round_variables
+    Round.unmemoize_class_methods_variables
+    GolfCourse.unmemoize_class_methods_variables
   end
 end

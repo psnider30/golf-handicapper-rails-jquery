@@ -1,6 +1,7 @@
 class GolfersController < ApplicationController
 
   before_action :authenticate_user
+  after_action :unmemoize_golfer_variables, only: [:create, :update, :destroy]
 
   def index
     @golfers = Golfer.all
@@ -23,4 +24,9 @@ class GolfersController < ApplicationController
   def can_delete_profile
     redirect_to root_url unless current_golfer.id == params[:id]
   end
+
+  def unmemoize_golfer_variables
+    Golfer.unmemoize_class_methods_variables
+  end
+
 end
