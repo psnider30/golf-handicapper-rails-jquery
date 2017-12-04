@@ -39,6 +39,7 @@ class GolfCoursesController < ApplicationController
     authenticate_admin
     Round.where(golf_course_id: @golf_course.id).destroy_all
     GolfCourseComment.where(golf_course_id: @golf_course.id).destroy_all
+    GolfCourseTag.where(golf_course_id: @golf_course.id).destroy_all
     @golf_course.destroy
     redirect_to golf_courses_path, { notice: 'golf course deleted!' }
   end
