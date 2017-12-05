@@ -8,11 +8,19 @@ class RoundsController < ApplicationController
     if params[:golf_course_id]
       @golf_course = GolfCourse.find_by(id: params[:golf_course_id])
       @golf_course_rounds = @golf_course.rounds
-      render 'rounds/golf_course_rounds_index'
+      respond_to do |format|
+        format.html { render :index }
+        format.json { render json: @golf_course_rounds }
+      end
+
     end
   end
 
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @round }
+    end
   end
 
   def new
