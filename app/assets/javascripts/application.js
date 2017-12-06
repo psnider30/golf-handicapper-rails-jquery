@@ -13,5 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require golf_course_rounds
+//=jquery-readyselector
+//= require golf_courses_show
 //= require_tree .
