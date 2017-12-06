@@ -10,6 +10,7 @@ class GolfCoursesController < ApplicationController
 
   def show
     @round = Round.new
+    @golf_course_comment = GolfCourseComment.new
     respond_to do |format|
       format.html { render :show }
       format.json { render json: @golf_course }

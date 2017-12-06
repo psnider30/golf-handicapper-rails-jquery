@@ -53,6 +53,8 @@
   <% end %>
 </div><br>
 
+<%= render partial: 'golf_course_comment', locals: { golf_course_comment: @golf_course_comment, golf_course: @golf_course } %>
+
 <div>
   <% if @golf_course.golf_course_comments.present? %>
     <h4>Comments</h4>
