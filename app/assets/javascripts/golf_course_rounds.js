@@ -23,6 +23,7 @@ $(function() {
 
 function formatDate(fullDate) {
   var day = fullDate.getDate();
+  if(day <=9) { day = '0' + day}
   var month = fullDate.getMonth() + 1 ;
   var year = fullDate.getFullYear();
   return `${month}/${day}/${year}`

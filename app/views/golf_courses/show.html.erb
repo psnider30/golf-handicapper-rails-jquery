@@ -55,14 +55,36 @@
 
 <%= render partial: 'golf_course_comment', locals: { golf_course_comment: @golf_course_comment, golf_course: @golf_course } %>
 
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('.post-comment').on("submit", function(e) {
+      e.preventDefault();
+      var values = $(this).serialize();
+      var postComment = $.post(this.action + ".json", values)
+      postComment.done(function(comment) {
+        $("#golf_course_comment_content").val("");
+        $('.post-comment').find("input[type=submit]").removeAttr('disabled');
+        if ($.trim(comment)) {
+          $(".golf-course-comments").append(`<li>${comment["content"]} - by ${comment["golfer"]["name"]} on ${new Date(comment["created_at"])}`);
+          $("#duplicate-comment").text('')
+        } else {
+          $("#duplicate-comment").text("That's already been said about this course, be original ;)")
+        }
+      });
+    });
+  });
+</script>
+
+<p id="duplicate-comment"></p>
+
 <div>
   <% if @golf_course.golf_course_comments.present? %>
     <h4>Comments</h4>
-    <% @golf_course.golf_course_comments.each do |comment| %>
-      <ul>
+    <ul class="golf-course-comments">
+      <% @golf_course.golf_course_comments.each do |comment| %>
         <li><%= comment.content  %>  -  by <%= comment.golfer.name %> on <%= comment.created_at.strftime('%m/%d/%Y') %></li>
-      </ul>
-    <% end %>
+      <% end %>
+    </ul>
   <% end %>
 </div>
 

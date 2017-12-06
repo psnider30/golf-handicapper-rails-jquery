@@ -1,15 +1,10 @@
 class GolfCourseCommentsController < ApplicationController
 
   def create
-    @golf_course_comment = GolfCourseComment.new(golf_course_comment_params)
     @golf_course = GolfCourse.find(params[:golf_course_id])
-    if @golf_course_comment.save
-      respond_to do |format|
-        format.html { redirect_to @golf_course }
-        format.json { render json: @golf_course_comment, status: 201 }
-      end
-    else
-      redirect_to @golf_course
+    golf_course_comment = GolfCourseComment.new(golf_course_comment_params)
+    if golf_course_comment.save
+      render json: golf_course_comment, status: 201
     end
   end
 
