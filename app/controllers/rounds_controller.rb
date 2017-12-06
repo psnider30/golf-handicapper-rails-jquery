@@ -31,8 +31,11 @@ class RoundsController < ApplicationController
   def create
     @round = Round.new(round_params)
     if @round.save
-      redirect_to golfer_round_path(current_golfer.id, @round.id), { notice: "Round of #{@round.score} at #{@round.golf_course.name}
-       by #{@round.golfer.name} entered successfully." }
+      respond_to do |format|
+        format.html { redirect_to golfer_round_path(current_golfer.id, @round.id) }
+        format.json { render json: @round, status: 201 }
+      end
+      {notice: "Round of #{@round.score} at #{@round.golf_course.name} by #{@round.golfer.name} entered successfully."}
     else
       @golf_course = GolfCourse.new
       render 'rounds/new'

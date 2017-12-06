@@ -5,18 +5,41 @@
   <h4>Your Course Handicap, <%= current_golfer.name %>: <%= current_golfer.course_handicap(@golf_course).round(1) %></h4><br>
 <% end %>
 
+<%= render partial: 'golf_course_round', locals: { round: @round, golf_course: @golf_course } %>
+
+<div>
+  <h4 id="showPostedRound"></h4>
+</div><br>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $(".post-round").on("submit", function(e) {
+      e.preventDefault();
+      var values = $(this).serialize();
+      var newRound = $.post(this.action + ".json", values);
+      $("#round_score").val("");
+      newRound.done(function(data) {
+        var round = data;
+        $("#showPostedRound").text(`Successfully ented score of ${round.score} by ${round.golfer.name}`)
+      });
+    });
+  });
+</script>
+
 <div>
   <h4>Course Description:</h4>
   <p><%= @golf_course.description %></p>
 </div><br>
 
-<div class='tags-list'>
-  <ul>
-    <% @golf_course.tags.each do |tag|%>
-      <li><%= tag.name %></li>
-    <% end %>
-  </ul>
-</div><br>
+<% if @golf_course.tags.present? %>
+  <div class='tags-list'>
+    <ul>
+      <% @golf_course.tags.each do |tag|%>
+        <li><%= tag.name %></li>
+      <% end %>
+    </ul>
+  </div><br>
+<% end %>
 
 <div>
   <h4>Course Details:</h4>

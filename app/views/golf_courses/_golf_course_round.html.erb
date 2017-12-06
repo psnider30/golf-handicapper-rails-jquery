@@ -1,0 +1,7 @@
+<%= form_for([current_golfer, round], html: {class: "post-round" }) do |f| %>
+  <%= f.label :score %>
+  <%= f.number_field :score %>
+  <%= f.hidden_field :golfer_id, value: current_golfer.id %>
+  <%= f.hidden_field :golf_course_id, value: golf_course.id %>
+  <%= f.submit "Post new Round at #{golf_course.name}" %>
+<% end %>
