@@ -1,5 +1,9 @@
 $(".golfers.show").ready(function() {
-  $(".btn-primary.next-golfer").on("click", function() {
-    console.log("clicked");
+  var $next = $(".btn-primary.next-golfer")
+  $next.on("click", function() {
+    var nextId = parseInt($next.attr("data-id")) + 1;
+    $.get("/golfers/" + nextId + ".json", function(golfer) {
+      console.log(golfer);
+    });
   });
 });

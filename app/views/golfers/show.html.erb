@@ -10,6 +10,7 @@
 <hr><br>
 
 <button class="btn-primary next-golfer" data-id="<%= @golfer.id %>">Next Golfer >></button><br><br>
+
 <%= button_to 'Post New Round', new_golfer_round_path(@golfer), class: 'btn-success', method: 'get' if current_golfer == @golfer %>
 
 <div>
