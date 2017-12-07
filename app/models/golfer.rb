@@ -14,6 +14,10 @@ class Golfer < ActiveRecord::Base
   has_many :golf_courses, through: :rounds
   has_many :golf_course_comments
 
+  def name
+    self[:name].split.map(&:capitalize).join(' ')
+  end
+  
    def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |golfer|
       golfer.email = auth.info.email

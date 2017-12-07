@@ -37,7 +37,7 @@ $(".golf_courses.show").ready(function() {
     var newRound = $.post(this.action + ".json", values);
     newRound.done(function(round) {
       $("#round_score").val("");
-      $("#showPostedRound").text(`Successfully ented score of ${round.score} by ${round.golfer.name}`);
+      $("#showPostedRound").text(`Successfully entered score of ${round.score} by ${round.golfer.name}`);
       $("#roundBlank").text("")
     })
     .fail(function() {

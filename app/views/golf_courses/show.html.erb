@@ -7,7 +7,7 @@
 
 <%= render partial: 'golf_course_round', locals: { round: @round, golf_course: @golf_course } %>
 
-<div>
+<div class="course description">
   <h4>Course Description:</h4>
   <p><%= @golf_course.description %></p>
 </div><br>
@@ -22,7 +22,7 @@
   </div><br>
 <% end %>
 
-<div>
+<div class="course-details">
   <h4>Course Details:</h4>
 
   <p>Holes: <%= @golf_course.holes %></p>
@@ -36,8 +36,6 @@
 
 <%= render partial: 'golf_course_comment', locals: { golf_course_comment: @golf_course_comment, golf_course: @golf_course } %>
 
-<p id="duplicate-comment"></p>
-
 <div>
   <% if @golf_course.golf_course_comments.present? %>
     <h4>Comments</h4>
@@ -49,11 +47,9 @@
   <% end %>
 </div>
 
-
 <button class="show-rounds" data-id="<%= @golf_course.id %>">Show all Rounds</button><br><br>
 <%= button_to 'Edit Golf Course', edit_golf_course_path, method: 'get' %><br>
 <%= button_to('Delete Golf Course', golf_course_path(@golf_course), method: 'delete') if current_golfer.id == 1 %>
-
 
 <ul id="all-rounds-gc-<%= @golf_course.id %>">
 

@@ -25,7 +25,7 @@
 /* Some Style from the Bootstrap Default Theme */
 
 .spacer {
-  height: 40px
+  height: 50px
 }
 
 * {
@@ -95,4 +95,13 @@ div {
 
 #roundBlank {
   color: red;
+}
+
+hr {
+    background-color: dimgrey;
+    color: dimgrey;
+    border: solid 0.5px dimgrey;
+    height: 0.5px;
+    width: 100%;
+    margin: auto;
 }
