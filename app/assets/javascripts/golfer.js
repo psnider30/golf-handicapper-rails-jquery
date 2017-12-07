@@ -1,0 +1,3 @@
+$(".golfer.show").ready(function() {
+  
+})

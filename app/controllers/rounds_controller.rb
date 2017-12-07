@@ -32,8 +32,8 @@ class RoundsController < ApplicationController
     @round = Round.new(round_params)
     if @round.save
       respond_to do |format|
-        format.html { redirect_to golfer_round_path(current_golfer.id, @round.id) }
         format.json { render json: @round, status: 201 }
+        format.html { redirect_to golfer_round_path(current_golfer.id, @round.id) }
       end
       {notice: "Round of #{@round.score} at #{@round.golf_course.name} by #{@round.golfer.name} entered successfully."}
     else

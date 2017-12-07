@@ -35,10 +35,14 @@ $(".golf_courses.show").ready(function() {
     e.preventDefault();
     var values = $(this).serialize();
     var newRound = $.post(this.action + ".json", values);
-    $("#round_score").val("");
-    newRound.done(function(data) {
-      var round = data;
-      $("#showPostedRound").text(`Successfully ented score of ${round.score} by ${round.golfer.name}`)
+    newRound.done(function(round) {
+      $("#round_score").val("");
+      $("#showPostedRound").text(`Successfully ented score of ${round.score} by ${round.golfer.name}`);
+      $("#roundBlank").text("")
+    })
+    .fail(function() {
+      $("#roundBlank").text("Uh, what was your score?")
+      $('.post-round').find("input[type=submit]").removeAttr('disabled');
     });
   });
 });
@@ -54,7 +58,7 @@ $(".golf_courses.show").ready(function() {
       $('.post-comment').find("input[type=submit]").removeAttr('disabled');
       if ($.trim(comment)) {
         $(".golf-course-comments").append(`<li>${comment["content"]} - by ${comment["golfer"]["name"]} on ${formatDate(new Date(comment["created_at"]))}`);
-        $("#duplicate-comment").text('')
+        $("#duplicate-comment").text('');
       } else {
         $("#duplicate-comment").text("That's already been said about this course, be original ;)")
       }
