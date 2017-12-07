@@ -23,7 +23,7 @@ $(".golf_courses.show").ready(function() {
           `${round.display_from_par}` + ' - ' +
           `${formatDate(new Date(round.created_at))} </li>`;
         });
-        $("#all-rounds-gc-" + id).html(roundsList);
+        $("#all-rounds-gc-" + id).append(roundsList);
       }
     });
   });

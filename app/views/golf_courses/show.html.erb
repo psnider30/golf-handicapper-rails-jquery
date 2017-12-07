@@ -51,10 +51,14 @@
   </ul>
 </div><hr><br>
 
-<button class="btn-info show-rounds" data-id="<%= @golf_course.id %>">Show all Rounds</button><br><br>
-<%= button_to 'Edit Golf Course', edit_golf_course_path, class: "btn-warning", method: 'get' %><br>
-<%= button_to('Delete Golf Course', golf_course_path(@golf_course), class:"btn-danger", method: 'delete') if current_golfer.id == 1 %>
+<div class="buttons-gc-show">
+  <ul>
+    <li><button class="btn-info show-rounds" data-id="<%= @golf_course.id %>">Show all Rounds</button></li>
+    <li><%= button_to('Edit Golf Course', edit_golf_course_path, class: "btn-warning gc-show", method: 'get') %></li>
+    <li><%= button_to('Delete Golf Course', golf_course_path(@golf_course), class:"btn-danger gc-show", method: 'delete') if current_golfer.id == 1 %></li>
+  </ul>
+</div><br>
 
-<ul id="all-rounds-gc-<%= @golf_course.id %>">
+<ul id="all-rounds-gc-<%= @golf_course.id %>" class="all-rounds-gc">
 
 </ul>
