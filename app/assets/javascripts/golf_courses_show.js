@@ -8,7 +8,7 @@ function formatDate(fullDate) {
 
 // show all the rounds for golf_course on show page
 $(".golf_courses.show").ready(function() {
-  $(".show-rounds").on("click", function(e) {
+  $(".btn-info.show-rounds").on("click", function(e) {
     e.preventDefault();
     var id = $(this).data("id");
     $.get("/golf_courses/" + id + "/rounds.json").success(function(data) {

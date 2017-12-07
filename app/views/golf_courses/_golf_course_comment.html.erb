@@ -3,7 +3,7 @@
   <%= f.text_area :content %><br>
   <%= f.hidden_field :golfer_id, value: current_golfer.id %>
   <%= f.hidden_field :golf_course_id, value: golf_course.id %>
-  <%= f.submit "Post Comment for #{golf_course.name}" %>
+  <%= f.submit "Post Comment for #{golf_course.name}", class: "btn-primary" %>
 <% end %>
 
 <p id="duplicate-comment"></p>

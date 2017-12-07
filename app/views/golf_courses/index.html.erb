@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <h1>Golf Courses</h1>
-
+<hr><br>
 <table style='width: 60%'>
   <thead>
     <tr>
@@ -21,5 +21,6 @@
     <% end %>
   </tbody>
 </table><br>
+<hr><br>
 
-<%= button_to 'Create New Golf Course', new_golf_course_path, method: 'get' %>
+<%= button_to 'Create New Golf Course', new_golf_course_path, class: 'btn-primary', method: 'get' %>
