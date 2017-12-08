@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :golf_courses do
-    resources :rounds, only: [:index]
+    resources :rounds, only: [:index, :create]
     resources :golf_course_comments, only: [:create, :update, :destroy]
   end
 

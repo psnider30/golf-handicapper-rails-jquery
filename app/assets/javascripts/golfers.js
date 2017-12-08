@@ -23,6 +23,7 @@ Golfer.error = function(response) {
 }
 
 Golfer.prototype.renderGolfer = function() {
+  debugger;
   return Golfer.golferTemplate(this)
 }
 

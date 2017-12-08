@@ -1,4 +1,4 @@
-<%= form_for([current_golfer, round], html: {class: "post-round" }) do |f| %>
+<%= form_for([current_golfer, round], html: {class: "gc-post-round", "data-id" => golf_course.id }) do |f| %>
   <%= f.label :score %>
   <%= f.number_field :score %>
   <%= f.hidden_field :golfer_id, value: current_golfer.id %>
