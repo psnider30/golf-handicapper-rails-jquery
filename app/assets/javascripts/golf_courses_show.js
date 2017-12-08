@@ -1,11 +1,3 @@
-function formatDate(fullDate) {
-  var day = fullDate.getDate();
-  if(day <=9) { day = '0' + day}
-  var month = fullDate.getMonth() + 1 ;
-  var year = fullDate.getFullYear();
-  return `${month}/${day}/${year}`
-}
-
 // show all the rounds for golf_course on show page
 $(".golf_courses.show").ready(function() {
   $(".btn-info.show-rounds").on("click", function(e) {
@@ -21,7 +13,7 @@ $(".golf_courses.show").ready(function() {
           roundsList += `<li> ${round.golfer.name}` + ' - ' +
           `${round.score}` + ' - ' +
           `${round.display_from_par}` + ' - ' +
-          `${formatDate(new Date(round.created_at))} </li>`;
+          `${round.created_at_simple} </li>`;
         });
         $("#all-rounds-gc-" + id).append(roundsList);
       }
