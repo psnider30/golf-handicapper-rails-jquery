@@ -10,9 +10,11 @@ function Golfer(attributes) {
 Golfer.success = function(golfer_json) {
   var golfer = new Golfer(golfer_json);
   var showGolfer = golfer.renderGolfer()
+  var showRounds = golfer.renderRounds()
 
   // add or append the html from showGolfer
   $(".golfer-info").html(showGolfer)
+  $(".golfer-rounds").html(showRounds)
   console.log(golfer);
 }
 
@@ -21,7 +23,11 @@ Golfer.error = function(response) {
 }
 
 Golfer.prototype.renderGolfer = function() {
-  return Golfer.template(this)
+  return Golfer.golferTemplate(this)
+}
+
+Golfer.prototype.renderRounds = function() {
+  return Golfer.roundsTemplate(this)
 }
 
 Golfer.nextListener = function() {
@@ -43,11 +49,15 @@ Golfer.getNext = function(nextId) {
 Golfer.ready = function() {
   Golfer.nextListener()
   // select template html
-  Golfer.templateSource = $("#golfer-template").html()
+  Golfer.golferHandlebars = $("#golfer-template").html()
+  Golfer.roundsHandlebars = $("#rounds-template").html()
   // compile handlesbars temmplate
-  Golfer.template = Handlebars.compile(Golfer.templateSource)
+  Golfer.golferTemplate = Handlebars.compile(Golfer.golferHandlebars)
+  Golfer.roundsTemplate = Handlebars.compile(Golfer.roundsHandlebars)
 }
 
 $(".golfers.show").ready(function() {
-  Golfer.ready()
+  if ($(".btn-primary.next-golfer").length > 0) {
+    Golfer.ready()
+  }
 });

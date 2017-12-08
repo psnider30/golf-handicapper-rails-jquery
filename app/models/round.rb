@@ -38,6 +38,14 @@ class Round < ApplicationRecord
     end
   end
 
+  def golf_course_name
+    self.golf_course.name
+  end
+
+  def golfer_name
+    self.golfer.name
+  end
+
   def net_score
     @net_score ||= self.score - self.golfer.course_handicap(self.golf_course) if self.golfer.golfer_index
   end
@@ -74,7 +82,7 @@ class Round < ApplicationRecord
     @round_index ||= (113 * (self.score - golf_course.course_rating)) / 130
   end
 
-  memoize :net_score, :net_from_par, :from_par, :display_from_par, :display_net_from_par, :round_index
+  memoize :net_score, :net_from_par, :from_par, :display_from_par, :display_net_from_par, :round_index, :golf_course_name, :golfer_name
 
   # class methods
 

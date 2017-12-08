@@ -12,10 +12,9 @@
 
   <button class="btn-primary next-golfer" data-id="<%= @golfer.id %>">Next Golfer</button><br><br>
 
+<div class="golfer-rounds">
   <%= button_to 'Post New Round', new_golfer_round_path(@golfer), class: 'btn-success', method: 'get' if current_golfer == @golfer %>
 
-
-<div class="golfer-rounds">
   <h3>Rounds Posted</h3>
 
   <table style='width: 70%'>
@@ -44,10 +43,10 @@
         </tr>
       <% end %>
     </tbody>
-  </table>
-</div><br>
+  </table><br>
 
-<%= button_to "Delete Profile", golfer_path(@golfer), class: "btn-danger", method: 'delete' if current_golfer.id == params[:id].to_i %><br>
+  <%= button_to "Delete Profile", golfer_path(@golfer), class: "btn-danger", method: 'delete' if current_golfer.id == params[:id].to_i %><br>
+</div>
 
 <script id ="golfer-template" type="text/x-handlebars-template">
   <p id="notice"></p>
@@ -59,5 +58,36 @@
   <h4>Course Most Played: {{course_most_played}}</h4>
 
   <hr><br>
+</script>
 
+<script id="rounds-template" type="text/x-handlebars-template">
+
+  <h3>Rounds Posted</h3>
+
+  <table style='width: 70%'>
+    <thead>
+      <tr>
+        <th><strong>Golf Course</strong></th>
+        <th><strong>Score</strong></th>
+        <th><strong>Over/Under</strong></th>
+        <th><strong>Net Score</strong></th>
+        <th><strong>Net O/U</strong></th>
+        <th><strong>Post Date</strong></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each rounds}}
+      <!-- How to refer to the round attritbutes in the handlebars each block? -->
+        <tr>
+          <td><a href="/golf_courses/{{golf_course_id}}">{{golf_course_name}}</a></td>
+          <td>{{score}}</td>
+          <td>{{display_from_par}}</td>
+          <td>{{net_score}}</td>
+          <td>{{display_net_from_par}}</td>
+          <td>{{create_at}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table><br>
 </script>
