@@ -1,19 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class="golfer-info">
+  <p id="notice"><%= notice %></p>
 
-<h1>Golfer Profile for <%= @golfer.name %></h1>
-<hr>
-<h4>Email: <%= @golfer.email %></h4>
-<div>
+  <h1>Golfer Profile for <%= @golfer.name %></h1>
+  <hr>
+  <h4>Email: <%= @golfer.email %></h4>
   <h4>Index: <%= @golfer.golfer_index if @golfer.golfer_index %></h4>
   <h4>Course Most Played: <%= @golfer.course_most_played if @golfer.rounds.any? %></h4>
+
+  <hr><br>
 </div>
-<hr><br>
 
-<button class="btn-primary next-golfer" data-id="<%= @golfer.id %>">Next Golfer >></button><br><br>
+  <button class="btn-primary next-golfer" data-id="<%= @golfer.id %>">Next Golfer</button><br><br>
 
-<%= button_to 'Post New Round', new_golfer_round_path(@golfer), class: 'btn-success', method: 'get' if current_golfer == @golfer %>
+  <%= button_to 'Post New Round', new_golfer_round_path(@golfer), class: 'btn-success', method: 'get' if current_golfer == @golfer %>
 
-<div>
+
+<div class="golfer-rounds">
   <h3>Rounds Posted</h3>
 
   <table style='width: 70%'>
@@ -48,5 +50,14 @@
 <%= button_to "Delete Profile", golfer_path(@golfer), class: "btn-danger", method: 'delete' if current_golfer.id == params[:id].to_i %><br>
 
 <script id ="golfer-template" type="text/x-handlebars-template">
+  <p id="notice"></p>
+
+  <h1>Golfer Profile for {{name}}</h1>
+  <hr>
+  <h4>Email: {{email}}</h4>
+  <h4>Index: {{golfer_index}}</h4>
+  <h4>Course Most Played: {{course_most_played}}</h4>
+
+  <hr><br>
 
 </script>

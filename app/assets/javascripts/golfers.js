@@ -1,14 +1,18 @@
 function Golfer(attributes) {
   this.id = attributes.id;
   this.name = attributes.name;
-  this.email = attributes.email
-  this.golfer_index = attributes.golfer_index
-  this.rounds = attributes.rounds
+  this.email = attributes.email;
+  this.golfer_index = attributes.golfer_index;
+  this.rounds = attributes.rounds;
+  this.course_most_played = attributes.course_most_played;
 }
 
-Golfer.success = function(json) {
-  var golfer = new Golfer(json);
-  // var showGolfer = golfer.renderGolfer;
+Golfer.success = function(golfer_json) {
+  var golfer = new Golfer(golfer_json);
+  var showGolfer = golfer.renderGolfer()
+
+  // add or append the html from showGolfer
+  $(".golfer-info").html(showGolfer)
   console.log(golfer);
 }
 
@@ -17,13 +21,14 @@ Golfer.error = function(response) {
 }
 
 Golfer.prototype.renderGolfer = function() {
-
+  return Golfer.template(this)
 }
 
 Golfer.nextListener = function() {
-  var $next = $(".btn-primary.next-golfer")
-  var nextId = parseInt($next.attr("data-id")) + 1;
-  $next.click( function() {
+  $next = $(".btn-primary.next-golfer");
+  $next.on('click', function() {
+    var nextId = parseInt($next.data("id")) + 1;
+    $next.data("id", nextId);
     Golfer.getNext(nextId);
   });
 }
@@ -36,9 +41,11 @@ Golfer.getNext = function(nextId) {
 }
 
 Golfer.ready = function() {
-  // select template html
-  // compile handlesbars temmplate
   Golfer.nextListener()
+  // select template html
+  Golfer.templateSource = $("#golfer-template").html()
+  // compile handlesbars temmplate
+  Golfer.template = Handlebars.compile(Golfer.templateSource)
 }
 
 $(".golfers.show").ready(function() {
