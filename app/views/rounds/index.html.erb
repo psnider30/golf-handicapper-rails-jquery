@@ -13,7 +13,7 @@
   <tbody>
     <% @golf_course_rounds.each do |round| %>
       <tr>
-        <td><%= round.golfer.name %></td>
+        <td><%= link_to round.golfer.name, round.golfer %></td>
         <td><%= round.score %></td>
         <td><%= round.display_from_par %></td>
         <td><%= round.created_at.strftime('%m/%d/%Y') %></td>

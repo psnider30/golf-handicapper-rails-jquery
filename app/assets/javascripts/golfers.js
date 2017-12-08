@@ -7,8 +7,8 @@ function Golfer(attributes) {
   this.course_most_played = attributes.course_most_played;
 }
 
-Golfer.success = function(golfer_json) {
-  var golfer = new Golfer(golfer_json);
+Golfer.success = function(golferJson) {
+  var golfer = new Golfer(golferJson);
   var showGolfer = golfer.renderGolfer()
   var showRounds = golfer.renderRounds()
 
@@ -51,7 +51,7 @@ Golfer.ready = function() {
   // select template html
   Golfer.golferHandlebars = $("#golfer-template").html()
 
-  var currentGolferId = $("#rounds-template").data("id")
+  var currentGolferId = $("#golfer-rounds-template").data("id")
   Handlebars.registerHelper('ifequalId',function(a, options) {
     if (a === currentGolferId) {
       return options.fn(this);
@@ -60,7 +60,7 @@ Golfer.ready = function() {
     }
   });
 
-  Golfer.roundsHandlebars = $("#rounds-template").html()
+  Golfer.roundsHandlebars = $("#golfer-rounds-template").html()
   // compile handlesbars temmplate
   Golfer.golferTemplate = Handlebars.compile(Golfer.golferHandlebars)
   Golfer.roundsTemplate = Handlebars.compile(Golfer.roundsHandlebars)

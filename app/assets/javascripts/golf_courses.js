@@ -48,8 +48,19 @@ $(".golf_courses.show").ready(function() {
   });
 });
 
+GolfCourse.prototype.renderCourseRounds = function() {
+  return GolfCourse.golfCourseRoundsTemplate(this)
+}
+
 GolfCourse.error = function(response) {
   console.log("It's busted!", response)
+}
+
+GolfCourse.success = function(golfCourseJson) {
+  var golfCourse = new GolfCourse(golfCourseJson);
+  var id = golfCourseJson.id
+  var showCourseRounds = golfCourse.renderCourseRounds()
+  $(`#all-rounds-gc-${id}`).html(showCourseRounds)
 }
 // show all the rounds for golf_course on show page
 
@@ -71,10 +82,10 @@ GolfCourse.error = function(response) {
 
 
 GolfCourse.getGolfCourseRounds = function(id) {
-  $.get("/golf_courses/" + id + "/rounds.json")
+  $.get("/golf_courses/" + id + ".json")
     .success(function(rounds) {
       if ($.trim(rounds)) {
-        alert("I found Rounds");
+        GolfCourse.success(rounds)
         console.log(rounds);
       } else {
         alert("No Rounds Posted")

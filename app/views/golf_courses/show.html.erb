@@ -59,13 +59,12 @@
   </ul>
 </div><br>
 
-<ul id="all-rounds-gc-<%= @golf_course.id %>" class="all-rounds-gc">
+<div id="all-rounds-gc-<%= @golf_course.id %>" class="all-rounds-gc">
 
-</ul>
+</div>
 
 <script id="golf-course-rounds-template" type="text/x-handlebars-template" data-id="<%= current_golfer.id %>">
-  <h1> Rounds Played at {{name}}</h1>
-
+  <hr><br>
   <table style='width: 45%'>
     <thead>
       <tr>
@@ -79,12 +78,13 @@
     <tbody>
       {{#each rounds}}
         <tr>
-         <td>golfer_name</td>
+         <td><a href="/golfers/{{golfer_id}}">{{golfer_name}}</a></td>
           <td>{{score}}</td>
           <td>{{display_from_par}}</td>
           <td>{{created_at_simple}}</td>
         </tr>
-      {{/rounds}}
+      {{/each}}
     </tbody>
   </table>
+  <br>
 </script>
