@@ -6,13 +6,14 @@
   <h4>Email: <%= @golfer.email %></h4>
   <h4>Index: <%= @golfer.golfer_index if @golfer.golfer_index %></h4>
   <h4>Course Most Played: <%= @golfer.course_most_played if @golfer.rounds.any? %></h4>
-
   <hr><br>
-</div>
 
-  <button class="btn-primary next-golfer" data-id="<%= @golfer.id %>">Next Golfer</button><br><br>
+</div><br>
+
+<button class="btn-primary next-golfer" data-id="<%= @golfer.id %>">Next Golfer</button><br><br>
 
 <div class="golfer-rounds">
+
   <%= button_to 'Post New Round', new_golfer_round_path(@golfer), class: 'btn-success', method: 'get' if current_golfer == @golfer %>
 
   <h3>Rounds Posted</h3>
@@ -56,11 +57,14 @@
   <h4>Email: {{email}}</h4>
   <h4>Index: {{golfer_index}}</h4>
   <h4>Course Most Played: {{course_most_played}}</h4>
-
   <hr><br>
 </script>
 
-<script id="rounds-template" type="text/x-handlebars-template">
+<script id="rounds-template" type="text/x-handlebars-template" data-id="<%= current_golfer.id %>">
+  {{#ifequalId id}}
+  <div class="golfer-rounds">
+  <form class="button_to" method="get" action="/golfers/{{id}}/rounds/new"><input class="btn-success" type="submit" value="Post New Round" /></form>
+  {{/ifequalId}}
 
   <h3>Rounds Posted</h3>
 
@@ -73,6 +77,7 @@
         <th><strong>Net Score</strong></th>
         <th><strong>Net O/U</strong></th>
         <th><strong>Post Date</strong></th>
+        <th></th>
       </tr>
     </thead>
 
@@ -85,9 +90,21 @@
           <td>{{display_from_par}}</td>
           <td>{{net_score}}</td>
           <td>{{display_net_from_par}}</td>
-          <td>{{create_at}}</td>
+          <td>{{created_at_simple}}</td>
+          {{#ifequalId golfer_id}}
+          <td><a href="/golfers/{{golfer_id}}/rounds/{{id}}/edit">edit round</td>
+          {{/ifequalId}}
         </tr>
       {{/each}}
     </tbody>
   </table><br>
+
+  {{#ifequalId id}}
+  <form class="button_to" method="post" action="/golfers/2">
+    <input type="hidden" name="_method" value="delete" />
+    <input class="btn-danger" type="submit" value="Delete Profile" />
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  </form><br>
+  {{/ifequalId}}
+</div>
 </script>

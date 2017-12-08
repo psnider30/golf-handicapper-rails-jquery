@@ -50,6 +50,16 @@ Golfer.ready = function() {
   Golfer.nextListener()
   // select template html
   Golfer.golferHandlebars = $("#golfer-template").html()
+
+  var currentGolferId = $("#rounds-template").data("id")
+  Handlebars.registerHelper('ifequalId',function(a, options) {
+    if (a === currentGolferId) {
+      return options.fn(this);
+    } else {
+      return options.inverse(this);
+    }
+  });
+
   Golfer.roundsHandlebars = $("#rounds-template").html()
   // compile handlesbars temmplate
   Golfer.golferTemplate = Handlebars.compile(Golfer.golferHandlebars)

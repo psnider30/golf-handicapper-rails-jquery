@@ -38,6 +38,10 @@ class Round < ApplicationRecord
     end
   end
 
+  def created_at_simple
+    self.created_at.strftime('%m/%d/%Y')
+  end
+
   def golf_course_name
     self.golf_course.name
   end
