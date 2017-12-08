@@ -62,3 +62,29 @@
 <ul id="all-rounds-gc-<%= @golf_course.id %>" class="all-rounds-gc">
 
 </ul>
+
+<script id="golf-course-rounds-template" type="text/x-handlebars-template" data-id="<%= current_golfer.id %>">
+  <h1> Rounds Played at {{name}}</h1>
+
+  <table style='width: 45%'>
+    <thead>
+      <tr>
+        <th align="left"><strong>Golfer</strong></th>
+        <th align="left"><strong>Score</strong></th>
+        <th align="left"><strong>Over/Under</strong></th>
+        <th align="left"><strong>Date Posted</strong></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each rounds}}
+        <tr>
+         <td>golfer_name</td>
+          <td>{{score}}</td>
+          <td>{{display_from_par}}</td>
+          <td>{{created_at_simple}}</td>
+        </tr>
+      {{/rounds}}
+    </tbody>
+  </table>
+</script>

@@ -35,11 +35,11 @@ Golfer.nextListener = function() {
   $next.on('click', function() {
     var nextId = parseInt($next.data("id")) + 1;
     $next.data("id", nextId);
-    Golfer.getNext(nextId);
+    Golfer.getNextGolfer(nextId);
   });
 }
 
-Golfer.getNext = function(nextId) {
+Golfer.getNextGolfer = function(nextId) {
   $.get("/golfers/" + nextId + ".json", function(golfer) {
   })
   .success(Golfer.success)

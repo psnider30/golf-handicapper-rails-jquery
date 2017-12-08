@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require bootstrap
 //= jquery-readyselector
-//= require golf_courses_show
 //= require helpers
 //= require handlebars.min
 //= require_tree .
