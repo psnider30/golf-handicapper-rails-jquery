@@ -3,10 +3,8 @@
   <%= f.number_field :score %>
   <%= f.hidden_field :golfer_id, value: current_golfer.id %>
   <%= f.hidden_field :golf_course_id, value: golf_course.id %>
-  <%= f.submit "Post new Round at #{golf_course.name}", class: "btn-primary post-round", id: "post-round" %>
+  <%= f.submit "Post new Round at #{golf_course.name}",
+  class: "btn-primary post-round", id: "post-round", data: { disable_with: false } %>
 <% end %>
 
-<div>
-  <h4 id="showPostedRound"></h4>
-  <h4 id="roundBlank"></h4>
-</div><br>
+<div id="roundBlank"></div><br>

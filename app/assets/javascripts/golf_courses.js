@@ -11,59 +11,21 @@ function GolfCourse(attributes) {
   this.golf_course_comments = attributes.golf_course_comments;
 }
 
-GolfCourse.prototype.renderGolfCourseRounds = function() {
-  return GolfCourse.golfCourseRoundsTemplate(this)
-}
+$(".golf_course.show").ready(function() {
+  if ($(".btn-info.show-rounds").length > 0) {
+    GolfCourse.ready()
+  }
+});
 
-GolfCourse.getGolfCourseRoundsError = function(response) {
-  console.log("Get gc rounds is busted!", response)
-}
+GolfCourse.ready = function() {
+  GolfCourse.showRoundsListener()
+  GolfCourse.postRoundListener()
+  // select template html
+  GolfCourse.golfCourseRoundsHandlebars = $("#golf-course-rounds-template").html();
+  GolfCourse.showRoundHandlebars = $("#gc-show-round-template").html();
 
-GolfCourse.getGolfCourseRoundsSuccess = function(golfCourseJson) {
-  var golfCourse = new GolfCourse(golfCourseJson);
-  var id = golfCourse.id
-  var showCourseRounds = golfCourse.renderGolfCourseRounds()
-  $(`#all-rounds-gc-${id}`).html(showCourseRounds)
-}
-
-// GolfCourse.enablePostRound = function() {
-//   $(".gc-post-round").disabled = false;
-//   $(".btn-primary.post-round").disabled = false;
-//   GolfCourse.postRoundListener()
-// }
-
-GolfCourse.postGolfCourseRoundFail = function(response) {
-  $("#roundBlank").text("Uh, what was your score?")
-  console.log("Post round is busted!", response)
-}
-
-GolfCourse.postGolfCourseRoundDone = function(roundJson) {
-  $('#round_score').val('');
-  var round = new Round(roundJson);
-  var showRound = round.renderGolfCourseRound()
-  var golfCourseId = round.golf_course_id;
-  $(`#all-rounds-gc-${golfCourseId}`).html(showRound)
-  console.log(round)
-  $("#post-round").attr("disabled", false);
-}
-
-GolfCourse.getGolfCourseRounds = function(id) {
-  $.get("/golf_courses/" + id + ".json")
-    .success(function(rounds) {
-      if ($.trim(rounds)) {
-        GolfCourse.getGolfCourseRoundsSuccess(rounds)
-        console.log(rounds);
-      } else {
-        alert("No Rounds Posted")
-      }
-    })
-    .error(GolfCourse.getGolfCourseRoundsError)
-}
-
-GolfCourse.submitGolfCourseRound = function(roundValues, id) {
-  var postRound = $.post("/golf_courses/" + id + "/rounds", roundValues)
-  .done(GolfCourse.postGolfCourseRoundDone)
-  .fail(GolfCourse.postGolfCourseRoundFail)
+  GolfCourse.golfCourseRoundsTemplate = Handlebars.compile(GolfCourse.golfCourseRoundsHandlebars);
+  GolfCourse.showRoundTemplate = Handlebars.compile(GolfCourse.showRoundHandlebars);
 }
 
 GolfCourse.showRoundsListener = function() {
@@ -79,25 +41,68 @@ GolfCourse.postRoundListener = function() {
   $postRound = $(".gc-post-round");
   $postRound.on("submit", function(e) {
     e.preventDefault();
-    var roundValues = $(this).serialize();
-    var id = $("#round_golf_course_id").val();
-    // var golfer_id = $("#round_golfer_id").val()
-    // var score = $("#round_score").val()
-    GolfCourse.submitGolfCourseRound(roundValues, id)
+    if (this.round_score.value === "") {
+      $("#roundBlank").html("<h4>Uh, What was your score?<h4>")
+      $("#post-round").attr("disabled", false);
+    } else {
+      var roundValues = $(this).serialize();
+      var id = $("#round_golf_course_id").val();
+      GolfCourse.postGolfCourseRound(roundValues, id)
+    }
   });
 }
 
-GolfCourse.ready = function() {
-  GolfCourse.showRoundsListener()
-  GolfCourse.postRoundListener()
-  // select template html
-  GolfCourse.golfCourseRoundsHandlebars = $("#golf-course-rounds-template").html();
-  GolfCourse.showRoundHandlebars = $("#gc-show-round-template").html();
-
-  GolfCourse.golfCourseRoundsTemplate = Handlebars.compile(GolfCourse.golfCourseRoundsHandlebars);
-  GolfCourse.showRoundTemplate = Handlebars.compile(GolfCourse.showRoundHandlebars);
-
+GolfCourse.getGolfCourseRounds = function(id) {
+  $.get("/golf_courses/" + id + ".json")
+    .done(function(rounds) {
+      if ($.trim(rounds)) {
+        GolfCourse.doneGetGolfCourseRounds(rounds)
+        console.log(rounds);
+      } else {
+        alert("No Rounds Posted")
+      }
+    })
+    .fail(GolfCourse.failGetGolfCourseRounds)
 }
+
+GolfCourse.postGolfCourseRound = function(roundValues, id) {
+  var postRound = $.post("/golf_courses/" + id + "/rounds", roundValues)
+  .done(GolfCourse.donePostGolfCourseRound)
+  .fail(GolfCourse.failPostGolfCourseRound)
+}
+
+GolfCourse.doneGetGolfCourseRounds = function(golfCourseJson) {
+  var golfCourse = new GolfCourse(golfCourseJson);
+  var id = golfCourse.id
+  var showCourseRounds = golfCourse.renderGolfCourseRounds()
+  $(`#all-rounds-gc-${id}`).html(showCourseRounds)
+}
+
+GolfCourse.donePostGolfCourseRound = function(roundJson) {
+  $('#round_score').val('');
+  var round = new Round(roundJson);
+  var showRound = round.renderGolfCourseRound()
+  var golfCourseId = round.golf_course_id;
+  $(`#all-rounds-gc-${golfCourseId}`).html(showRound)
+  console.log(round)
+}
+
+GolfCourse.failGetGolfCourseRounds = function(response) {
+  console.log("Get gc rounds is busted!", response)
+}
+
+GolfCourse.failPostGolfCourseRound = function(response) {
+  $("#roundBlank").html("<h4>Uh, what was your score?</h4>")
+  console.log("Post round is busted!", response)
+  $("#post-round").attr("disabled", false)
+}
+
+GolfCourse.prototype.renderGolfCourseRounds = function() {
+  return GolfCourse.golfCourseRoundsTemplate(this)
+}
+
+// Round.prototype.renderGolfCourseRound in round.js
+
 
   // var currentGolferId = $("#golf-course-rounds-template").data("id")
   // Handlebars.registerHelper('ifequalCourseId',function(a, options) {
@@ -107,34 +112,9 @@ GolfCourse.ready = function() {
   //     return options.inverse(this);
   //   }
 
-
-  $(".golf_course.show").ready(function() {
-    if ($(".btn-info.show-rounds").length > 0) {
-      GolfCourse.ready()
-    }
-  });
-
   Handlebars.registerHelper("log", function(something) {
   console.log(something);
 });
-
-  // post new round for golf_course on it's show page
-  // $(".golf_courses.show").ready(function() {
-  //   $(".post-round").on("submit", function(e) {
-  //     e.preventDefault();
-  //     var values = $(this).serialize();
-  //     var newRound = $.post(this.action + ".json", values);
-  //     newRound.done(function(round) {
-  //       $("#round_score").val("");
-  //       $("#showPostedRound").text(`Successfully entered score of ${round.score} by ${round.golfer.name}`);
-  //       $("#roundBlank").text("")
-  //     })
-  //     .fail(function() {
-  //       $("#roundBlank").text("Uh, what was your score?")
-  //       $('.post-round').find("input[type=submit]").removeAttr('disabled');
-  //     });
-  //   });
-  // });
 
   // post new comment on golf_course show page
   $(".golf_courses.show").ready(function() {
