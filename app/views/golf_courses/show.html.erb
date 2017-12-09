@@ -90,7 +90,7 @@
   <br>
 </script>
 
-<script class="gc-post-round" id="gc-post-round-<%= @golf_course.id %>" type="text/x-handlebars-template" data-id="<%= @golf_course.id %>">
+<script id="gc-show-round-template" type="text/x-handlebars-template" data-id="<%= @golf_course.id %>">
   <hr><br>
   <table style='width: 65%'>
     <thead>
@@ -104,7 +104,7 @@
 
     <tbody>
       <tr>
-       <td><a href="/golfers/{{golfer_id}}">{{golfer_name}}</a></td>
+        <td>{{golfer_name}}</td>
         <td>{{score}}</td>
         <td>{{display_from_par}}</td>
         <td>{{created_at_simple}}</td>
