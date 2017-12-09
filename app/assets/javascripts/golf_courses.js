@@ -41,10 +41,12 @@ GolfCourse.postRoundListener = function() {
   $postRound = $(".gc-post-round");
   $postRound.on("submit", function(e) {
     e.preventDefault();
-    if (this.round_score.value === "") {
-      $("#roundBlank").html("<h4>Uh, What was your score?<h4>")
+    var score = this.round_score.value
+    if (score === "" || score < 36 || score >180) {
+      $("#roundBlank").html("<h4>That can't be right. What was your score?<h4>")
       $("#post-round").attr("disabled", false);
     } else {
+      $("#roundBlank").html("")
       var roundValues = $(this).serialize();
       var id = $("#round_golf_course_id").val();
       GolfCourse.postGolfCourseRound(roundValues, id)

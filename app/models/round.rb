@@ -3,6 +3,7 @@ class Round < ApplicationRecord
   extend Memoist
   after_commit :unmemoize_all
   validates_presence_of :score, :golfer_id, :golf_course_id
+  validates :score, numericality: { greater_than: 35, less_than: 181 }
 
   belongs_to :golfer
   belongs_to :golf_course
