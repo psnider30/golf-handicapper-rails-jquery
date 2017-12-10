@@ -1,9 +1,9 @@
-<%= form_for([golf_course, golf_course_comment], html: {class: "post-comment" }) do |f| %>
-  <h5>Add Comment</h5>
+<%= form_for([golf_course, golf_course_comment], html: {class: "gc-post-comment", "data-id" => golf_course.id }) do |f| %>
   <%= f.text_area :content %><br>
   <%= f.hidden_field :golfer_id, value: current_golfer.id %>
   <%= f.hidden_field :golf_course_id, value: golf_course.id %>
-  <%= f.submit "Post Comment for #{golf_course.name}", class: "btn-primary" %>
+  <%= f.submit "Post Comment for #{golf_course.name}",
+  id: "post-comment", class: "btn-primary post-comment", data: { disable_with: false } %>
 <% end %>
 
-<p id="duplicate-comment"></p>
+<div id="comment-error"></div>

@@ -20,9 +20,11 @@ $(".golf_course.show").ready(function() {
 GolfCourse.ready = function() {
   GolfCourse.showRoundsListener()
   GolfCourse.postRoundListener()
+  GolfCourse.postCommentListener()
   // select template html
   GolfCourse.golfCourseRoundsHandlebars = $("#golf-course-rounds-template").html();
   GolfCourse.showRoundHandlebars = $("#gc-show-round-template").html();
+  // GolfCourse.showCommentHandlebars = $("#gc-show-comment-template").html();
 
   GolfCourse.golfCourseRoundsTemplate = Handlebars.compile(GolfCourse.golfCourseRoundsHandlebars);
   GolfCourse.showRoundTemplate = Handlebars.compile(GolfCourse.showRoundHandlebars);
@@ -54,6 +56,22 @@ GolfCourse.postRoundListener = function() {
   });
 }
 
+GolfCourse.postCommentListener = function() {
+  $('.gc-post-comment').on("submit", function(e) {
+    e.preventDefault();
+    var $commentContent = $("#golf_course_comment_content");
+    if ($commentContent.val() !== "") {
+      $("#comment-error").html("")
+      var commentValues = $(this).serialize();
+      var url = this.action
+      GolfCourse.postGolfCourseComment(url, commentValues)
+    } else {
+      $("#comment-error").html("<h5>Did you want to post a comment?</h5>")
+      $("#post-comment").attr("disabled", false)
+    }
+  });
+}
+
 GolfCourse.getGolfCourseRounds = function(id) {
   $.get("/golf_courses/" + id + ".json")
     .done(function(rounds) {
@@ -73,6 +91,13 @@ GolfCourse.postGolfCourseRound = function(roundValues, id) {
   .fail(GolfCourse.failPostGolfCourseRound)
 }
 
+GolfCourse.postGolfCourseComment = function(url, commentValues) {
+  var postComment = $.post(url, commentValues)
+  .done(GolfCourse.donePostGolfCourseComment)
+  .fail(GolfCourse.failPostGolfCourseComment)
+}
+
+
 GolfCourse.doneGetGolfCourseRounds = function(golfCourseJson) {
   var golfCourse = new GolfCourse(golfCourseJson);
   var id = golfCourse.id
@@ -89,6 +114,14 @@ GolfCourse.donePostGolfCourseRound = function(roundJson) {
   console.log(round)
 }
 
+GolfCourse.donePostGolfCourseComment = function(commentJson) {
+  if (!commentJson) {$("#comment-error").html("<h5>You already been said about this course, be original ;)</h5>")}
+  $('#golf_course_comment_content').val('')
+  var comment = new GolfCourseComment(commentJson);
+  var golfCourseId = comment.golf_course_id;
+  $(`#golf-course-comments-${golfCourseId}`).append(`<li>${comment.content} - by ${comment.golfer_name} on ${comment.created_at_simple}</li>`)
+}
+
 GolfCourse.failGetGolfCourseRounds = function(response) {
   console.log("Get gc rounds is busted!", response)
 }
@@ -97,6 +130,12 @@ GolfCourse.failPostGolfCourseRound = function(response) {
   $("#roundBlank").html("<h4>Uh, what was your score?</h4>")
   console.log("Post round is busted!", response)
   $("#post-round").attr("disabled", false)
+}
+
+GolfCourse.failPostGolfCourseComment = function(response) {
+  $("#comment-error").html("<h5>That's already been said about this course, be original ;)</h5>")
+  console.log("Post Comment Broke!", response)
+  $("#post-comment").attr("disabled", false)
 }
 
 GolfCourse.prototype.renderGolfCourseRounds = function() {
@@ -117,22 +156,3 @@ GolfCourse.prototype.renderGolfCourseRounds = function() {
   Handlebars.registerHelper("log", function(something) {
   console.log(something);
 });
-
-  // post new comment on golf_course show page
-  $(".golf_courses.show").ready(function() {
-    $('.post-comment').on("submit", function(e) {
-      e.preventDefault();
-      var values = $(this).serialize();
-      var postComment = $.post(this.action + ".json", values)
-      postComment.done(function(comment) {
-        $("#golf_course_comment_content").val("");
-        $('.post-comment').find("input[type=submit]").removeAttr('disabled');
-        if ($.trim(comment)) {
-          $(".golf-course-comments").append(`<li>${comment["content"]} - by ${comment["golfer"]["name"]} on ${formatDate(new Date(comment["created_at"]))}`);
-          $("#duplicate-comment").text('');
-        } else {
-          $("#duplicate-comment").text("That's already been said about this course, be original ;)")
-        }
-      });
-    });
-  });

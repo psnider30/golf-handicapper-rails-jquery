@@ -36,14 +36,14 @@
   <% if @golf_course.rounds.present? %>
     <p>Low Score: <%= @golf_course.course_lowest_round.score %> by <%= @golf_course.course_lowest_round.golfer.name %></p>
   <% end %>
-</div><hr>
+</div><hr><br>
 
 <%= render partial: 'golf_course_comment', locals: { golf_course_comment: @golf_course_comment, golf_course: @golf_course } %>
 
 <div>
-  <h4>Comments</h4>
-  <ul class="golf-course-comments">
+  <ul id="golf-course-comments-<%= @golf_course.id %>"class="golf-course-comments">
     <% if @golf_course.golf_course_comments.present? %>
+      <h4>Comments</h4>
       <% @golf_course.golf_course_comments.each do |comment| %>
         <li><%= comment.content  %>  -  by <%= comment.golfer.name %> on <%= comment.created_at.strftime('%m/%d/%Y') %></li>
       <% end %>
@@ -112,4 +112,8 @@
     </tbody>
   </table>
   <br>
+</script>
+
+<script id="gc-show-comment-template" type="text/x-handlebars-template" data-id="<%= current_golfer.id %>">
+
 </script>
