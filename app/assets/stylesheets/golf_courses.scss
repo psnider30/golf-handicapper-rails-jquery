@@ -29,3 +29,44 @@
   margin: auto;
   align: left;
 }
+
+#showPostedRound {
+  color: green;
+}
+
+#roundBlank, #comment-error {
+  color: #FF0008;
+}
+
+.golf-course-comment {
+  margin-left: 10px;
+}
+
+.gc-comment-destroy {
+  margin-left: 30px;
+}
+.golf-course-comment a {
+  display: none;
+	position: absolute;
+	font-size: 15px;
+	color: #AF3539;
+	transition: color 0.2s ease-out;
+	background: none;
+}
+
+.golf-course-comment a:hover {
+  color: #FF0008;
+}
+
+.golf-course-comment :hover a {
+  display: inline-block;
+}
+
+.golf-course-comment li {
+  margin-right: 100px;
+}
+
+
+// .golf-course-comment li a:after {
+//   content: 'x';
+// }

@@ -1,7 +1,6 @@
 class GolfCourseCommentsController < ApplicationController
 
   def create
-    @golf_course = GolfCourse.find(params[:golf_course_id])
     golf_course_comment = GolfCourseComment.new(golf_course_comment_params)
     if golf_course_comment.save
       render json: golf_course_comment, status: 201
@@ -12,6 +11,10 @@ class GolfCourseCommentsController < ApplicationController
   end
 
   def destroy
+    golf_course_comment = GolfCourseComment.find(params[:id])
+    golf_course = GolfCourse.find(params[:golf_course_id])
+    golf_course_comment.destroy
+    redirect_to golf_course
   end
 
   private

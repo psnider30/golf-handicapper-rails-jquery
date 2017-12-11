@@ -41,11 +41,15 @@
 <%= render partial: 'golf_course_comment', locals: { golf_course_comment: @golf_course_comment, golf_course: @golf_course } %>
 
 <div>
+  <h4>Comments</h4>
   <ul id="golf-course-comments-<%= @golf_course.id %>"class="golf-course-comments">
     <% if @golf_course.golf_course_comments.present? %>
-      <h4>Comments</h4>
       <% @golf_course.golf_course_comments.each do |comment| %>
-        <li><%= comment.content  %>  -  by <%= comment.golfer.name %> on <%= comment.created_at.strftime('%m/%d/%Y') %></li>
+        <div class="golf-course-comment">
+          <li><%= comment.content  %>  -  by <%= comment.golfer.name %> on <%= comment.created_at.strftime('%m/%d/%Y') %>
+          <span class="gc-comment-destroy"><a href='/golf_courses/<%= @golf_course.id %>/golf_course_comments/<%= comment.id %>' data-method="delete">x</a></span>
+          </li>
+        </div><br>
       <% end %>
     <% end %>
   </ul>
