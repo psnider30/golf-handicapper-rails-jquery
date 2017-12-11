@@ -39,7 +39,7 @@
           <td><%= round.display_from_par %></td>
           <td><%= round.net_score %></td>
           <td><%= round.display_net_from_par %></td>
-          <td><%= round.created_at.strftime('%m/%d/%Y') %></td>
+          <td><%= round.created_at_simple %></td>
           <td><%= link_to 'edit round', edit_golfer_round_path(@golfer, round) if current_golfer == @golfer %></td>
         </tr>
       <% end %>
@@ -61,9 +61,9 @@
 </script>
 
 <script id="golfer-rounds-template" type="text/x-handlebars-template" data-id="<%= current_golfer.id %>">
-  {{#ifequalId id}}
+  {{#ifPermissionGolfer id}}
   <form class="button_to" method="get" action="/golfers/{{id}}/rounds/new"><input class="btn-success" type="submit" value="Post New Round" /></form>
-  {{/ifequalId}}
+  {{/ifPermissionGolfer}}
 
   <h3>Rounds Posted</h3>
 
@@ -82,7 +82,6 @@
 
     <tbody>
       {{#each rounds}}
-      <!-- How to refer to the round attritbutes in the handlebars each block? -->
         <tr>
           <td><a href="/golf_courses/{{golf_course_id}}">{{golf_course_name}}</a></td>
           <td>{{score}}</td>
@@ -90,19 +89,19 @@
           <td>{{net_score}}</td>
           <td>{{display_net_from_par}}</td>
           <td>{{created_at_simple}}</td>
-          {{#ifequalId golfer_id}}
+          {{#ifPermissionGolfer golfer_id}}
           <td><a href="/golfers/{{golfer_id}}/rounds/{{id}}/edit">edit round</td>
-          {{/ifequalId}}
+          {{/ifPermissionGolfer}}
         </tr>
       {{/each}}
     </tbody>
   </table><br>
 
-  {{#ifequalId id}}
+  {{#ifPermissionGolfer id}}
   <form class="button_to" method="post" action="/golfers/2">
     <input type="hidden" name="_method" value="delete" />
     <input class="btn-danger" type="submit" value="Delete Profile" />
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   </form><br>
-  {{/ifequalId}}
+  {{/ifPermissionGolfer}}
 </script>

@@ -52,7 +52,7 @@ Golfer.ready = function() {
   Golfer.golferHandlebars = $("#golfer-template").html()
 
   var currentGolferId = $("#golfer-rounds-template").data("id")
-  Handlebars.registerHelper('ifequalId',function(a, options) {
+  Handlebars.registerHelper('ifPermissionGolfer',function(a, options) {
     if (a === currentGolferId) {
       return options.fn(this);
     } else {
