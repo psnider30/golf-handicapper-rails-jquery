@@ -37,22 +37,19 @@
     <p>Low Score: <%= @golf_course.course_lowest_round.score %> by <%= @golf_course.course_lowest_round.golfer.name %></p>
   <% end %>
 </div><hr><br>
-
 <%= render partial: 'golf_course_comment', locals: { golf_course_comment: @golf_course_comment, golf_course: @golf_course } %>
 
-<div>
+<div id="golf-course-comments-<%= @golf_course.id %>"class="golf-course-comments">
   <h4>Comments</h4>
-  <ul id="golf-course-comments-<%= @golf_course.id %>"class="golf-course-comments">
     <% if @golf_course.golf_course_comments.present? %>
       <% @golf_course.golf_course_comments.each do |comment| %>
         <div class="golf-course-comment">
-          <li><%= comment.content  %>  -  by <%= comment.golfer.name %> on <%= comment.created_at.strftime('%m/%d/%Y') %>
-          <span class="gc-comment-destroy"><a href='/golf_courses/<%= @golf_course.id %>/golf_course_comments/<%= comment.id %>' data-method="delete">x</a></span>
-          </li>
-        </div><br>
+          <h7><b><%= comment.golfer.name %></b>  -  <%= comment.created_at_simple %></h7>
+          <span class="gc-comment-destroy"><a href='/golf_courses/<%= @golf_course.id %>/golf_course_comments/<%= comment.id %>' data-method="delete">X</a></span><br>
+          <p><%= comment.content %></p>
+        </div>
       <% end %>
     <% end %>
-  </ul>
 
 </div><hr><br>
 

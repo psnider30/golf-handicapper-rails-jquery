@@ -42,10 +42,10 @@
   margin-left: 10px;
 }
 
-.gc-comment-destroy {
-  margin-left: 30px;
+.golf-course-comment h7 {
+  margin-right: 50px;
 }
-.golf-course-comment a {
+.gc-comment-destroy a {
   display: none;
 	position: absolute;
 	font-size: 15px;
@@ -54,19 +54,10 @@
 	background: none;
 }
 
-.golf-course-comment a:hover {
+.gc-comment-destroy:hover a {
   color: #FF0008;
 }
 
-.golf-course-comment :hover a {
-  display: inline-block;
+.golf-course-comment:hover a {
+  display: inline;
 }
-
-.golf-course-comment li {
-  margin-right: 100px;
-}
-
-
-// .golf-course-comment li a:after {
-//   content: 'x';
-// }
