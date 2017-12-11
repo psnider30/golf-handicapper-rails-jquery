@@ -1,7 +1,7 @@
 <div class="golfer-info">
   <p id="notice"><%= notice %></p>
 
-  <h1>Golfer Profile for <%= @golfer.name %></h1>
+  <h1 id="golfer-profile-<%= current_golfer.id %>">Golfer Profile for <%= @golfer.name %></h1>
   <hr>
   <h4>Email: <%= @golfer.email %></h4>
   <h4>Index: <%= @golfer.golfer_index if @golfer.golfer_index %></h4>
@@ -10,7 +10,10 @@
 
 </div><br>
 
-<button class="btn-primary next-golfer" data-id="<%= @golfer.id %>">Next Golfer</button><br><br>
+<button class="btn-primary next-golfer" data-id="<%= @golfer.id %>"
+  data-last-golfer-id="<%= @last_golfer_id %>" data-first-golfer-id="<%= @first_golfer_id %>">
+  Next Golfer
+</button><br><br>
 
 <div class="golfer-rounds">
 

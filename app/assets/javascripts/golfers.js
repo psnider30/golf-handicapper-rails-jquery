@@ -34,6 +34,10 @@ Golfer.nextListener = function() {
   $next = $(".btn-primary.next-golfer");
   $next.on('click', function() {
     var nextId = parseInt($next.data("id")) + 1;
+    var lastGolferId = $next.data("last-golfer-id")
+    if (nextId > lastGolferId) {
+      nextId = $next.data("first-golfer-id");
+    }
     $next.data("id", nextId);
     Golfer.getNextGolfer(nextId);
   });

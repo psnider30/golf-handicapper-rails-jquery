@@ -8,7 +8,10 @@ class GolfersController < ApplicationController
   end
 
   def show
+    @last_golfer_id = Golfer.last.id
+    @first_golfer_id = Golfer.first.id
     @golfer = Golfer.find(params[:id])
+
     respond_to do |format|
       format.html { render :show }
       format.json { render json: @golfer }
