@@ -7,27 +7,30 @@ function Golfer(attributes) {
   this.course_most_played = attributes.course_most_played;
 }
 
-Golfer.success = function(golferJson) {
-  var golfer = new Golfer(golferJson);
-  var showGolfer = golfer.renderGolfer()
-  var showRounds = golfer.renderRounds()
+$(".golfers.show").ready(function() {
+  if ($(".btn-primary.next-golfer").length > 0) {
+    Golfer.ready()
+  }
+});
 
-  // add or append the html from showGolfer
-  $(".golfer-info").html(showGolfer)
-  $(".golfer-rounds").html(showRounds)
-  console.log(golfer);
-}
+Golfer.ready = function() {
+  Golfer.nextListener()
+  // select template html
+  Golfer.golferHandlebars = $("#golfer-template").html()
 
-Golfer.error = function(response) {
-  console.log("Not working?", response)
-}
+  var currentGolferId = $("#golfer-rounds-template").data("id")
+  Handlebars.registerHelper('ifPermissionGolfer',function(a, options) {
+    if (a === currentGolferId) {
+      return options.fn(this);
+    } else {
+      return options.inverse(this);
+    }
+  });
 
-Golfer.prototype.renderGolfer = function() {
-  return Golfer.golferTemplate(this)
-}
-
-Golfer.prototype.renderRounds = function() {
-  return Golfer.roundsTemplate(this)
+  Golfer.roundsHandlebars = $("#golfer-rounds-template").html()
+  // compile handlesbars temmplate
+  Golfer.golferTemplate = Handlebars.compile(Golfer.golferHandlebars)
+  Golfer.roundsTemplate = Handlebars.compile(Golfer.roundsHandlebars)
 }
 
 Golfer.nextListener = function() {
@@ -50,28 +53,25 @@ Golfer.getNextGolfer = function(nextId) {
   .error(Golfer.error)
 }
 
-Golfer.ready = function() {
-  Golfer.nextListener()
-  // select template html
-  Golfer.golferHandlebars = $("#golfer-template").html()
+Golfer.success = function(golferJson) {
+  var golfer = new Golfer(golferJson);
+  var showGolfer = golfer.renderGolfer()
+  var showRounds = golfer.renderRounds()
 
-  var currentGolferId = $("#golfer-rounds-template").data("id")
-  Handlebars.registerHelper('ifPermissionGolfer',function(a, options) {
-    if (a === currentGolferId) {
-      return options.fn(this);
-    } else {
-      return options.inverse(this);
-    }
-  });
-
-  Golfer.roundsHandlebars = $("#golfer-rounds-template").html()
-  // compile handlesbars temmplate
-  Golfer.golferTemplate = Handlebars.compile(Golfer.golferHandlebars)
-  Golfer.roundsTemplate = Handlebars.compile(Golfer.roundsHandlebars)
+  // add or append the html from showGolfer
+  $(".golfer-info").html(showGolfer)
+  $(".golfer-rounds").html(showRounds)
+  console.log(golfer);
 }
 
-$(".golfers.show").ready(function() {
-  if ($(".btn-primary.next-golfer").length > 0) {
-    Golfer.ready()
-  }
-});
+Golfer.error = function(response) {
+  console.log("Not working?", response)
+}
+
+Golfer.prototype.renderGolfer = function() {
+  return Golfer.golferTemplate(this)
+}
+
+Golfer.prototype.renderRounds = function() {
+  return Golfer.roundsTemplate(this)
+}

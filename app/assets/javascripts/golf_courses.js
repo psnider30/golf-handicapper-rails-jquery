@@ -50,6 +50,34 @@ GolfCourse.showRoundsListener = function() {
   });
 }
 
+GolfCourse.getGolfCourseRounds = function(id) {
+  $.get("/golf_courses/" + id + ".json")
+    .done(function(rounds) {
+      if ($.trim(rounds)) {
+        GolfCourse.doneGetGolfCourseRounds(rounds)
+        console.log(rounds);
+      } else {
+        alert("No Rounds Posted")
+      }
+    })
+    .fail(GolfCourse.failGetGolfCourseRounds)
+}
+
+GolfCourse.doneGetGolfCourseRounds = function(golfCourseJson) {
+  var golfCourse = new GolfCourse(golfCourseJson);
+  var id = golfCourse.id
+  var showCourseRounds = golfCourse.renderGolfCourseRounds()
+  $(`#all-rounds-gc-${id}`).html(showCourseRounds)
+}
+
+GolfCourse.failGetGolfCourseRounds = function(response) {
+  console.log("Get gc rounds is busted!", response)
+}
+
+GolfCourse.prototype.renderGolfCourseRounds = function() {
+  return GolfCourse.golfCourseRoundsTemplate(this)
+}
+
 GolfCourse.postRoundListener = function() {
   $postRound = $(".gc-post-round");
   $postRound.on("submit", function(e) {
@@ -65,6 +93,26 @@ GolfCourse.postRoundListener = function() {
       GolfCourse.postGolfCourseRound(roundValues, id)
     }
   });
+}
+
+GolfCourse.postGolfCourseRound = function(roundValues, id) {
+  var postRound = $.post("/golf_courses/" + id + "/rounds", roundValues)
+  .done(GolfCourse.donePostGolfCourseRound)
+  .fail(GolfCourse.failPostGolfCourseRound)
+}
+
+GolfCourse.donePostGolfCourseRound = function(roundJson) {
+  $('#round_score').val('');
+  var round = new Round(roundJson);
+  var showRound = round.renderGolfCourseRound()
+  var golfCourseId = round.golf_course_id;
+  $(`#all-rounds-gc-${golfCourseId}`).html(showRound)
+}
+
+GolfCourse.failPostGolfCourseRound = function(response) {
+  $("#roundBlank").html("<h4>Uh, what was your score?</h4>")
+  console.log("Post round is busted!", response)
+  $("#post-round").attr("disabled", false)
 }
 
 GolfCourse.postCommentListener = function() {
@@ -83,67 +131,11 @@ GolfCourse.postCommentListener = function() {
   });
 }
 
-GolfCourse.deleteCommentListener = function() {
-  $('.gc-comment-destroy-button').on('click', function(e) {
-    $(this).unbind('click');
-    e.preventDefault();
-    GolfCourse.deleteComment(this)
-  });
-}
-
-GolfCourse.getGolfCourseRounds = function(id) {
-  $.get("/golf_courses/" + id + ".json")
-    .done(function(rounds) {
-      if ($.trim(rounds)) {
-        GolfCourse.doneGetGolfCourseRounds(rounds)
-        console.log(rounds);
-      } else {
-        alert("No Rounds Posted")
-      }
-    })
-    .fail(GolfCourse.failGetGolfCourseRounds)
-}
-
-GolfCourse.postGolfCourseRound = function(roundValues, id) {
-  var postRound = $.post("/golf_courses/" + id + "/rounds", roundValues)
-  .done(GolfCourse.donePostGolfCourseRound)
-  .fail(GolfCourse.failPostGolfCourseRound)
-}
-
 GolfCourse.postGolfCourseComment = function(url, commentValues) {
   var postComment = $.post(url, commentValues)
   .done(GolfCourse.donePostGolfCourseComment)
   .fail(GolfCourse.failPostGolfCourseComment)
 }
-
-GolfCourse.deleteComment = function(deleteButton) {
-  $.ajax( {
-    url: $(deleteButton).attr("href"),
-    dataType: 'json',
-    method: $(deleteButton).attr("data-method")
-  })
-  .success(GolfCourse.successDeleteComment)
-  .error(function(response) {
-    console.log(response)
-  });
-}
-
-
-GolfCourse.doneGetGolfCourseRounds = function(golfCourseJson) {
-  var golfCourse = new GolfCourse(golfCourseJson);
-  var id = golfCourse.id
-  var showCourseRounds = golfCourse.renderGolfCourseRounds()
-  $(`#all-rounds-gc-${id}`).html(showCourseRounds)
-}
-
-GolfCourse.donePostGolfCourseRound = function(roundJson) {
-  $('#round_score').val('');
-  var round = new Round(roundJson);
-  var showRound = round.renderGolfCourseRound()
-  var golfCourseId = round.golf_course_id;
-  $(`#all-rounds-gc-${golfCourseId}`).html(showRound)
-}
-
 GolfCourse.donePostGolfCourseComment = function(commentJson) {
   if (!commentJson) {$("#comment-error").html("<h5>You already been said about this course, be original ;)</h5>")}
   $('#golf_course_comment_content').val('')
@@ -159,33 +151,40 @@ GolfCourse.donePostGolfCourseComment = function(commentJson) {
   });
 }
 
-GolfCourse.successDeleteComment = function(commentJson) {
-  var comment = new GolfCourseComment(commentJson);
-  comment.destroy(comment.id);
-}
-
-GolfCourse.failGetGolfCourseRounds = function(response) {
-  console.log("Get gc rounds is busted!", response)
-}
-
-GolfCourse.failPostGolfCourseRound = function(response) {
-  $("#roundBlank").html("<h4>Uh, what was your score?</h4>")
-  console.log("Post round is busted!", response)
-  $("#post-round").attr("disabled", false)
-}
-
 GolfCourse.failPostGolfCourseComment = function(response) {
   $("#comment-error").html("<h5>That's already been said about this course, be original ;)</h5>")
   console.log("Post Comment Broke!", response)
   $("#post-comment").attr("disabled", false)
 }
 
-GolfCourse.prototype.renderGolfCourseRounds = function() {
-  return GolfCourse.golfCourseRoundsTemplate(this)
+GolfCourse.deleteCommentListener = function() {
+  $('.gc-comment-destroy-button').on('click', function(e) {
+    $(this).unbind('click');
+    e.preventDefault();
+    GolfCourse.deleteComment(this)
+  });
+}
+
+GolfCourse.deleteComment = function(deleteButton) {
+  $.ajax( {
+    url: $(deleteButton).attr("href"),
+    dataType: 'json',
+    method: $(deleteButton).attr("data-method")
+  })
+  .success(GolfCourse.successDeleteComment)
+  .error(function(response) {
+    console.log(response)
+  });
+}
+
+GolfCourse.successDeleteComment = function(commentJson) {
+  var comment = new GolfCourseComment(commentJson);
+  comment.destroy(comment.id);
 }
 
 // Round.prototype.renderGolfCourseRound in rounds.js
 // Comment.prototype.renderGolfCourseComment in golf_course_comments.js
+// Comment.prototype.destroy in golf_course_comments.js
 
 //   Handlebars.registerHelper("log", function(something) {
 //   console.log(something);
