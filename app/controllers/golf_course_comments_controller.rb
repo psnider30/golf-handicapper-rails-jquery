@@ -14,7 +14,7 @@ class GolfCourseCommentsController < ApplicationController
     golf_course_comment = GolfCourseComment.find(params[:id])
     golf_course = GolfCourse.find(params[:golf_course_id])
     golf_course_comment.destroy
-    redirect_to golf_course
+    render json: golf_course_comment
   end
 
   private

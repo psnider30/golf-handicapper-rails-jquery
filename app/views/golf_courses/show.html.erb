@@ -45,7 +45,11 @@
     <div class="golf-course-comment" id="golf-course-comment-<%= comment.id %>">
       <h7><b><%= comment.golfer.name %></b>  -  <%= comment.created_at_simple %></h7>
       <% if current_golfer.golf_course_comments.include?(comment) %>
-        <span class="gc-comment-destroy"><a class="gc-comment-destroy-link" href='/golf_courses/<%= @golf_course.id %>/golf_course_comments/<%= comment.id %>' data-method="delete">X</a></span><br>
+        <div class="gc-comment-destroy">
+          <button class="gc-comment-destroy-button" id="gc-comment-destroy-button-<%= comment.id %>" data-id="<%= comment.id %>"
+          href='/golf_courses/<%= @golf_course.id %>/golf_course_comments/<%= comment.id %>' data-method="delete">X
+          </button>
+        </div><br>
       <% end %>
       <p><%= comment.content %></p>
     </div>
@@ -116,11 +120,12 @@
 
 <script id="gc-show-comment-template" type="text/x-handlebars-template" data-id="<%= current_golfer.id %>">
   <div class="golf-course-comment" id="golf-course-comment-{{id}}">
-    <h7><b>{{golfer_name}}</b>  -  {{created_at_simple}}</h7>
-    <span class="gc-comment-destroy">
-      {{#ifPermissionGC golfer_id }}
-        <a href='/golf_courses/{{golf_course_id}}/golf_course_comments/{{id}}' data-method="delete">X</a></span><br>
-      {{/ifPermissionGC}}
-    <p>{{content}}</p>
-  </div>
+      <h7><b>{{golfer_name}}</b>  -  {{created_at_simple}}</h7>
+        <div class="gc-comment-destroy">
+          <button class="gc-comment-destroy-button" id="gc-comment-destroy-button-{{id}}" data-id="{{id}}"
+          href='/golf_courses/{{golf_course_id}}/golf_course_comments/{{id}}' data-method="delete">X
+          </button>
+        </div><br>
+      <p>{{content}}</p>
+    </div>
 </script>

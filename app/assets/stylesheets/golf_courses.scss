@@ -43,21 +43,26 @@
 }
 
 .golf-course-comment h7 {
-  margin-right: 50px;
+  margin-right: 100px;
 }
-.gc-comment-destroy a {
+
+.gc-comment-destroy {
+  display: inline;
+}
+.gc-comment-destroy button {
   display: none;
 	position: absolute;
-	font-size: 15px;
+	font-size: 10px;
 	color: #AF3539;
 	transition: color 0.2s ease-out;
 	background: none;
 }
 
-.gc-comment-destroy:hover a {
+.gc-comment-destroy:hover button {
   color: #FF0008;
+
 }
 
-.golf-course-comment:hover a {
+.golf-course-comment:hover button {
   display: inline;
 }

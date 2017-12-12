@@ -11,7 +11,7 @@ function GolfCourse(attributes) {
   this.golf_course_comments = attributes.golf_course_comments;
 }
 
-$(".golf_course.show").ready(function() {
+$(function() {
   if ($(".btn-info.show-rounds").length > 0) {
     GolfCourse.ready()
 
@@ -84,10 +84,11 @@ GolfCourse.postCommentListener = function() {
 }
 
 GolfCourse.deleteCommentListener = function() {
-  $(".gc-comment-destroy-link").on('click', function(e) {
-    e.preventDefault()
-    alert('destroy')
-  })
+  $('.gc-comment-destroy-button').on('click', function(e) {
+    $(this).unbind('click');
+    e.preventDefault();
+    GolfCourse.deleteComment(this)
+  });
 }
 
 GolfCourse.getGolfCourseRounds = function(id) {
@@ -115,6 +116,18 @@ GolfCourse.postGolfCourseComment = function(url, commentValues) {
   .fail(GolfCourse.failPostGolfCourseComment)
 }
 
+GolfCourse.deleteComment = function(deleteButton) {
+  $.ajax( {
+    url: $(deleteButton).attr("href"),
+    dataType: 'json',
+    method: $(deleteButton).attr("data-method")
+  })
+  .success(GolfCourse.successDeleteComment)
+  .error(function(response) {
+    console.log(response)
+  });
+}
+
 
 GolfCourse.doneGetGolfCourseRounds = function(golfCourseJson) {
   var golfCourse = new GolfCourse(golfCourseJson);
@@ -129,7 +142,6 @@ GolfCourse.donePostGolfCourseRound = function(roundJson) {
   var showRound = round.renderGolfCourseRound()
   var golfCourseId = round.golf_course_id;
   $(`#all-rounds-gc-${golfCourseId}`).html(showRound)
-  console.log(round)
 }
 
 GolfCourse.donePostGolfCourseComment = function(commentJson) {
@@ -139,6 +151,17 @@ GolfCourse.donePostGolfCourseComment = function(commentJson) {
   var golfCourseId = comment.golf_course_id;
   var showComment = comment.renderGolfCourseComment()
   $(`#golf-course-comments-${golfCourseId}`).append(showComment)
+
+  $('#gc-comment-destroy-button-' + comment.id).on('click', function(e) {
+    $(this).unbind('click');
+    e.preventDefault();
+    GolfCourse.deleteComment(this)
+  });
+}
+
+GolfCourse.successDeleteComment = function(commentJson) {
+  var comment = new GolfCourseComment(commentJson);
+  comment.destroy(comment.id);
 }
 
 GolfCourse.failGetGolfCourseRounds = function(response) {
@@ -164,6 +187,6 @@ GolfCourse.prototype.renderGolfCourseRounds = function() {
 // Round.prototype.renderGolfCourseRound in rounds.js
 // Comment.prototype.renderGolfCourseComment in golf_course_comments.js
 
-  Handlebars.registerHelper("log", function(something) {
-  console.log(something);
-});
+//   Handlebars.registerHelper("log", function(something) {
+//   console.log(something);
+// });
