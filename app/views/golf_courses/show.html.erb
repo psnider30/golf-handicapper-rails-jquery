@@ -51,7 +51,9 @@
           </button>
         </div><br>
       <% end %>
-      <p><%= comment.content %></p>
+      <p class="gc-comment-content" data-id="<%= comment.id %>" data-url="/golf_courses/<%= @golf_course.id %>/golf_course_comments/<%= comment.id %>/edit"> 
+        <%= comment.content %>
+      </p>
     </div>
   <% end %>
 </div><hr><br>

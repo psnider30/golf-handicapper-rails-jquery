@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :golf_courses do
     resources :rounds, only: [:index, :create]
-    resources :golf_course_comments, only: [:create, :update, :destroy]
+    resources :golf_course_comments, only: [:create, :edit, :update, :destroy]
   end
 
 end

@@ -31,6 +31,7 @@ GolfCourse.ready = function() {
   GolfCourse.postRoundListener()
   GolfCourse.postCommentListener()
   GolfCourse.deleteCommentListener()
+  GolfCourse.editCommentListener()
   // select template html
   GolfCourse.golfCourseRoundsHandlebars = $("#golf-course-rounds-template").html();
   GolfCourse.showRoundHandlebars = $("#gc-show-round-template").html();
@@ -180,6 +181,15 @@ GolfCourse.deleteComment = function(deleteButton) {
 GolfCourse.successDeleteComment = function(commentJson) {
   var comment = new GolfCourseComment(commentJson);
   comment.destroy(comment.id);
+}
+
+GolfCourse.editCommentListener = function() {
+  $(".gc-comment-content").on('dblclick', function(e) {
+    e.preventDefault();
+    var commentId = $(this).data("id")
+    var url =  $(this).data("url")
+    $(`#golf-course-comment-${commentId}`).append(`<a href="${url}">Edit Comment</a>`)
+  });
 }
 
 // Round.prototype.renderGolfCourseRound in rounds.js

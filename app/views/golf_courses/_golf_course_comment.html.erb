@@ -1,3 +1,8 @@
+<% if params[:action] == "edit" %>
+  <br>
+  <h4>Update Comment</h4>
+<% end %>
+
 <%= form_for([golf_course, golf_course_comment], html: {class: "gc-post-comment", "data-id" => golf_course.id }) do |f| %>
   <%= f.text_area :content %><br>
   <%= f.hidden_field :golfer_id, value: current_golfer.id %>
