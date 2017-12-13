@@ -6,6 +6,11 @@ class GolfCoursesController < ApplicationController
 
   def index
     @golf_courses = GolfCourse.all
+
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @golf_courses.to_json(only: [:name, :course_slope])}
+    end
   end
 
   def show

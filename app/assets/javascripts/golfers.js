@@ -14,14 +14,40 @@ $(".golfers.show").ready(function() {
 });
 
 $(".welcome.home").ready(function() {
+  Golfer.getGolfers()
+  GolfCourse.getGolfCourses()
+});
+
+Golfer.getGolfers = function() {
   $.get("/golfers.json")
-  .done(function(golfers) {
-    console.log(golfers)
-  })
+  .done(Golfer.doneGetHomeInfo)
   .fail(function(response) {
     console.log(response)
   })
-});
+}
+
+
+Golfer.doneGetHomeInfo = function(golfersJson) {
+  var golfers = golfersJson.map(golfer => new Golfer(golfer))
+  Golfer.makeHome(golfers)
+}
+
+Golfer.makeHome = function(golfers) {
+  var groupSize = golfers.length;
+  var lowIndexGolfer = golfers.reduce((prev, current) => {
+    return prev.golfer_index< current.golfer_index ? prev : current
+  });
+  var roundsRaw = golfers.map(golfer => golfer.rounds);
+  var rounds = [].concat.apply([], roundsRaw);
+  var lowRound = rounds.reduce((prev, current) => {
+    return prev.from_par < current.from_par ? prev : current
+  });
+  var lowRoundNet = rounds.reduce((prev, current) => {
+    return prev.net_from_par < current.net_from_par ? prev : current
+  });
+  console.log(`Low Handicap ${lowIndexGolfer.golfer_index} for ${lowIndexGolfer.name}`)
+  console.log(groupSize)
+}
 
 Golfer.ready = function() {
   Golfer.nextListener()
@@ -59,11 +85,11 @@ Golfer.nextListener = function() {
 Golfer.getNextGolfer = function(nextId) {
   $.get("/golfers/" + nextId + ".json", function(golfer) {
   })
-  .success(Golfer.success)
-  .error(Golfer.error)
+  .success(Golfer.successGetNext)
+  .error(Golfer.errorGetNext)
 }
 
-Golfer.success = function(golferJson) {
+Golfer.successGetNext = function(golferJson) {
   var golfer = new Golfer(golferJson);
   var showGolfer = golfer.renderGolfer()
   var showRounds = golfer.renderRounds()
@@ -74,7 +100,7 @@ Golfer.success = function(golferJson) {
   console.log(golfer);
 }
 
-Golfer.error = function(response) {
+Golfer.errorGetNext = function(response) {
   console.log("Not working?", response)
 }
 
