@@ -13,6 +13,16 @@ $(".golfers.show").ready(function() {
   }
 });
 
+$(".welcome.home").ready(function() {
+  $.get("/golfers.json")
+  .done(function(golfers) {
+    console.log(golfers)
+  })
+  .fail(function(response) {
+    console.log(response)
+  })
+});
+
 Golfer.ready = function() {
   Golfer.nextListener()
   // select template html

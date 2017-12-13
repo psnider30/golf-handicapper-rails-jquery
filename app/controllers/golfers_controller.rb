@@ -5,6 +5,10 @@ class GolfersController < ApplicationController
 
   def index
     @golfers = Golfer.all
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @golfers }
+    end
   end
 
   def show
