@@ -11,19 +11,6 @@ function GolfCourse(attributes) {
   this.golf_course_comments = attributes.golf_course_comments;
 }
 
-GolfCourse.getGolfCourses = function() {
-  $.get("/golf_courses.json")
-    .done(GolfCourse.makeGolfCourses)
-    .fail(function(response) {
-      console.log(response)
-    });
-}
-
-GolfCourse.makeGolfCourses = function (gcJson) {
-  var GolfCourses = gcJson.map(gc => new GolfCourse(gc))
-}
-
-
 $(function() {
   if ($(".btn-info.show-rounds").length > 0) {
     GolfCourse.ready()
