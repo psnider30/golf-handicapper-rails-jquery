@@ -1,3 +1,17 @@
+<% if golf_course_comment.errors.any? %>
+  <br>
+  <div id="error_explanation">
+    <h4><%= pluralize(golf_course_comment.errors.count, 'error') %>
+    prohibited this golf course from being saved:</h4>
+
+    <ul>
+      <% golf_course_comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <% if params[:action] == "edit" %>
   <br>
   <h4>Update Comment</h4>
