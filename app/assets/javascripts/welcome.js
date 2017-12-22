@@ -2,12 +2,25 @@ var home = { groupSize: null, lowIndexGolfer: null, lowRound: null,
   lowRoundNet: null, lowSlopeCourse: null, highSlopeCourse: null };
 
 $(".welcome.home").ready(function() {
+  hideIfBlank()
   var loggedIn = $(".not-logged-in").length === 0;
-  var homePage = $('.welcome-home').length > 0
+  var homePage = $('.welcome-golfer').length > 0
   if (loggedIn && homePage) {
     getHomeInfo()
   }
 });
+
+function hideIfBlank() {
+  $loginNotice = $('.login-notice')
+  if ($loginNotice.text() === '') {
+    $loginNotice.css("visibility", "hidden")
+  }
+
+  $welcome = $('.welcome-golfer h1')
+  if ($welcome.text().split(' ').length === 1) {
+    $homeInfo.css("visibility", "hidden")
+  }
+}
 
 function getHomeInfo() {
   $.get("/golf_courses.json")

@@ -1,19 +1,21 @@
-<div class= 'welcome-home'>
-  <p id="notice"><%= notice %></p>
+
+<div class= 'welcome-golfer'>
+  <p class="login-notice"><%= notice %></p>
 
   <h1>Welcome <%= current_golfer.name if current_golfer %></h1>
   <% if !current_golfer %> <h3 class="not-logged-in">Please Log in or Sign up </h3> <% end %>
 </div>
 
-<div class="home-info">
 
-</div><br>
+<% if current_golfer %> <div class="home-info"></div><br> <% end %>
+
+</container>
 
 <script id="home-info-template" type="text/x-handlebars-template">
   <h4>Golfers in your Group: {{groupSize}}</h4>
-    <h4>Low Handicap Index: {{lowIndexGolfer.golfer_index}} for {{lowIndexGolfer.name}}</h4>
-    <h4>Low Round: {{lowRound.display_from_par}} with score of {{lowRound.score}} at {{lowRound.golf_course_name}} by {{lowRound.golfer_name}}</h4>
-    <h4>Net Low Round: Score of {{lowRoundNet.score}} and net {{lowRoundNet.display_net_from_par}} at {{lowRoundNet.golf_course_name}} by {{lowRoundNet.golfer_name}}</h4>
-    <h4>Easiest Course: {{lowSlopeCourse.name}} with course slope of {{lowSlopeCourse.course_slope}}</h4>
-    <h4>Most Difficult {{highSlopeCourse.name}} with course slope of {{highSlopeCourse.course_slope}}</h4>
+  <h4>Low Handicap Index: {{lowIndexGolfer.golfer_index}} for {{lowIndexGolfer.name}}</h4>
+  <h4>Low Round: {{lowRound.display_from_par}} with score of {{lowRound.score}} at {{lowRound.golf_course_name}} by {{lowRound.golfer_name}}</h4>
+  <h4>Net Low Round: Score of {{lowRoundNet.score}} and net {{lowRoundNet.display_net_from_par}} at {{lowRoundNet.golf_course_name}} by {{lowRoundNet.golfer_name}}</h4>
+  <h4>Easiest Course: {{lowSlopeCourse.name}} with course slope of {{lowSlopeCourse.course_slope}}</h4>
+  <h4>Most Difficult {{highSlopeCourse.name}} with course slope of {{highSlopeCourse.course_slope}}</h4>
 </script>

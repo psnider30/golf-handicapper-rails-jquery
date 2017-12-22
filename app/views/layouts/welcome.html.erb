@@ -7,19 +7,15 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"></link>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Covered+By+Your+Grace" />
   </head>
 
   <body class="<%= controller_name %> <%= action_name %>">
-    <div class="spacer">
-    </div>
+    <div class="home-spacer"></div>
 
     <%= render '/layouts/navbar' %>
 
     <%= yield %>
-
-    <div class="home-pic">
-      <%= image_tag('Cypress-Point-15-water.jpg', class: 'home-pic-img') %>
-    </div>
 
   </body>
 </html>
