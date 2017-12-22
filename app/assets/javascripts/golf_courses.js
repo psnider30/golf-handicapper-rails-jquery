@@ -27,6 +27,7 @@ $(function() {
 });
 
 GolfCourse.ready = function() {
+  GolfCourse.hideIfNoTags()
   GolfCourse.showRoundsListener()
   GolfCourse.postRoundListener()
   GolfCourse.postCommentListener()
@@ -41,6 +42,11 @@ GolfCourse.ready = function() {
   GolfCourse.golfCourseRoundsTemplate = Handlebars.compile(GolfCourse.golfCourseRoundsHandlebars);
   GolfCourse.showRoundTemplate = Handlebars.compile(GolfCourse.showRoundHandlebars);
   GolfCourse.showCommentTemplate = Handlebars.compile(GolfCourse.showCommentHandlebars);
+}
+
+GolfCourse.hideIfNoTags = function() {
+  $tags = $('.tags-list')
+  if ($('.tags-list li').text()=== '') { $tags.hide() }
 }
 
 GolfCourse.showRoundsListener = function() {

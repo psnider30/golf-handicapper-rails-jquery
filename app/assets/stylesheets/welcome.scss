@@ -10,62 +10,65 @@
 //   height: 100%;
 // }
 
+.welcome.home {
+  background: url(Cypress-Point-15-water.jpg)  no-repeat;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background-size: cover;
+}
 
 .welcome-golfer h1 {
-  margin-top: 15px;
+  margin-top: 12px;
   margin-left: 38%;
   color: rgb(4, 54, 0);
   font-family: 'Acme', sans-serif;
   font-weight:400;
-  -webkit-text-stroke: 0.5px white;
-  font-size: 6em;
+  -webkit-text-stroke: 0.7px white;
+  font-size: 5em;
 }
 
-.not-logged-in, .login-notice {
-  margin-left: 40%;
+.not-logged-in, .login-notice, .home-info {
   display: inline-block;
-  padding: 4px;
   font-family: 'Source Serif Pro', serif;
   color: white;
   -webkit-text-stroke: 0.1px black;
   font-family: 'Source Serif Pro', serif;
   background-color: rgba(0, 28, 0, 0.8);
 }
+
+.not-logged-in, .login-notice {
+  margin-left: 40%;
+  padding: 4px;
+}
+
 .not-logged-in {
   margin-top: 0;
 }
+
 .login-notice {
   margin-top: 50px;
-  z-index: 0;
-  background-color: none;
 }
 
 .home-info {
   border-radius: 40px;
   padding: 10px;
-  display: inline-block;
   margin-top: 25px;
-  margin-left: 27%;
-  color: white;
-  -webkit-text-stroke: 0.1px black;
-  font-family: 'Source Serif Pro', serif;
-  background-color: rgba(0, 28, 0, 0.8);
-  z-index: 1000;
+  margin-left: 29%;
 }
 
 .home-info h4 {
   margin-left: 12px;
   margin-right: 10px;
-  font-size: 1.8em;
+  font-size: 1.6em;
   margin-top: 6px;
+
+}
+
+.home-info h4 span {
+  letter-spacing: 0.8px;
 }
 
 .home-spacer {
   height: 10px;
-}
-
-.welcome.home {
-  background: url(Cypress-Point-15-water.jpg)  no-repeat;
-  background-size: cover;
-  z-index: 1;
 }

@@ -16,6 +16,7 @@ function hideIfBlank() {
     $loginNotice.css("visibility", "hidden")
   }
 
+  $homeInfo = $('.home-info')
   $welcome = $('.welcome-golfer h1')
   if ($welcome.text().split(' ').length === 1) {
     $homeInfo.css("visibility", "hidden")
