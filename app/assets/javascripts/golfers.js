@@ -3,7 +3,7 @@ function Golfer(attributes) {
   this.name = attributes.name;
   this.email = attributes.email;
   this.golfer_index = attributes.golfer_index;
-  this.rounds = attributes.rounds.reverse();
+  if (attributes.rounds) { this.rounds = attributes.rounds.reverse(); }
   this.course_most_played = attributes.course_most_played;
 }
 

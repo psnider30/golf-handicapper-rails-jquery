@@ -24,45 +24,38 @@ function hideIfBlank() {
 }
 
 function getHomeInfo() {
-  $.get("/golf_courses.json")
-    .done(doneGetGolfCourses)
+  var golferRequest = $.get("/golfers.json")
+  .fail(function(response) {
+    console.log(response)
+  });
+
+  var golfCourseRequest = $.get("/golf_courses.json")
     .fail(function(response) {
       console.log(response)
     });
 
-  $.get("/golfers.json")
-  .done(doneGetGolfers)
-  .fail(function(response) {
-    console.log(response)
+  homeInfoRequestsDone(golferRequest, golfCourseRequest)
+}
+
+function homeInfoRequestsDone(golferRequest, golfCourseRequest) {
+  $.when(golferRequest, golfCourseRequest).then(function(golfersJson, gcJson) {
+    // var golfers = golfersJson.map(golfer => new Golfer(golfer));
+    // var golfCourses = gcJson.map(gc => new GolfCourse(gc));
+    console.log(golfersJson)
+    makeGolfersHome(golfersJson, gcJson)
   });
+
 }
 
-function doneGetGolfers(golfersJson) {
-  var golfers = golfersJson.map(golfer => new Golfer(golfer));
-  makeGolfersHome(golfers)
-  var showHomeInfo = renderHomeInfo(home)
-  $('.home-info').html(showHomeInfo)
-}
-
-function doneGetGolfCourses(gcJson) {
-  var golfCourses = gcJson.map(gc => new GolfCourse(gc));
-  makeGolfCoursesHome(golfCourses)
-}
-
-function makeGolfCoursesHome(golfCourses) {
-  home.lowSlopeCourse = golfCourses.reduce((prev, current) => {
-    return prev.course_slope < current.course_slope ? prev : current
-  });
-  home.highSlopeCourse = golfCourses.reduce((prev, current) => {
-    return prev.course_slope > current.course_slope ? prev : current
-  });
-}
-
-function makeGolfersHome(golfers) {
+function makeGolfersHome(golfersJson, gcJson) {
+  var golfers = golfersJson[0];
+  var golfCourses = gcJson[0];
+  
   home.groupSize = golfers.length;
   home.lowIndexGolfer = golfers.reduce((prev, current) => {
     return prev.golfer_index < current.golfer_index ? prev : current
   });
+
   var roundsRaw = golfers.map(golfer => golfer.rounds);
   var rounds = [].concat.apply([], roundsRaw);
   home.lowRound = rounds.reduce((prev, current) => {
@@ -71,6 +64,15 @@ function makeGolfersHome(golfers) {
   home.lowRoundNet = rounds.reduce((prev, current) => {
     return prev.net_from_par < current.net_from_par ? prev : current
   });
+  home.lowSlopeCourse = golfCourses.reduce((prev, current) => {
+    return prev.course_slope < current.course_slope ? prev : current
+  });
+  home.highSlopeCourse = golfCourses.reduce((prev, current) => {
+    return prev.course_slope > current.course_slope ? prev : current
+  });
+
+  var showHomeInfo = renderHomeInfo(home);
+  $('.home-info').html(showHomeInfo)
 }
 
 function renderHomeInfo(home) {
