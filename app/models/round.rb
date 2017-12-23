@@ -91,6 +91,10 @@ class Round < ApplicationRecord
 
   # class methods
 
+  def self.all_desc
+    all.order(created_at: :desc)
+  end
+
   def self.low_round_score
     @low_round_score ||= self.order(:score).first
   end

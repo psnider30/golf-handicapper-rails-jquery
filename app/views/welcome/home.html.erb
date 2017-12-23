@@ -6,10 +6,7 @@
   <% if !current_golfer %> <h3 class="not-logged-in">Please Log in or Sign up </h3> <% end %>
 </div>
 
-
 <% if current_golfer %> <div class="home-info"></div><br> <% end %>
-
-</container>
 
 <script id="home-info-template" type="text/x-handlebars-template">
   <h4>Golfers in your Group: &nbsp;<span> {{groupSize}}</span></h4>

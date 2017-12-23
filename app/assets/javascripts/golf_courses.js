@@ -6,7 +6,7 @@ function GolfCourse(attributes) {
   this.total_par = attributes.total_par;
   this.course_slope = attributes.course_slope;
   this.course_rating = attributes.course_rating;
-  this.rounds = attributes.rounds;
+  this.rounds = attributes.rounds.reverse();
   this.tags = attributes.tags;
   this.golf_course_comments = attributes.golf_course_comments;
 }

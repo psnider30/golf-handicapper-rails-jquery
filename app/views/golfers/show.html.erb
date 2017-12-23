@@ -35,7 +35,7 @@
     </thead>
 
     <tbody>
-      <% @golfer.rounds.each do |round| %>
+      <% @rounds_desc.each do |round| %>
         <tr>
           <td><%= link_to round.golf_course.name, golf_course_path(round.golf_course) %></td>
           <td><%= round.score %></td>

@@ -15,6 +15,7 @@ class GolfersController < ApplicationController
     @last_golfer_id = Golfer.last.id
     @first_golfer_id = Golfer.first.id
     @golfer = Golfer.find(params[:id])
+    @rounds_desc = @golfer.rounds.order(created_at: :desc)
 
     respond_to do |format|
       format.html { render :show }

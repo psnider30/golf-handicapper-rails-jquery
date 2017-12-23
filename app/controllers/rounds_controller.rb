@@ -7,7 +7,7 @@ class RoundsController < ApplicationController
   def index
     if params[:golf_course_id]
       @golf_course = GolfCourse.find_by(id: params[:golf_course_id])
-      @golf_course_rounds = @golf_course.rounds
+      @golf_course_rounds = @golf_course.rounds.order(created_at: :desc)
       respond_to do |format|
         format.html { render :index }
         format.json { render json: @golf_course_rounds }
