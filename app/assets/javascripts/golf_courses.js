@@ -197,7 +197,10 @@ GolfCourse.editCommentListener = function() {
     e.preventDefault();
     var commentId = $(this).data("id")
     var url =  $(this).data("url")
-    $(`#golf-course-comment-${commentId}`).append(`<a href="${url}">Edit Comment</a>`)
+    var comment = $(`#golf-course-comment-${commentId}`)
+    if (!comment.has('a').length) {
+      comment.append(`<a href="${url}">Edit Comment</a>`)
+    }
   });
 }
 
