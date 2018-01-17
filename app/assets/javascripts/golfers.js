@@ -14,7 +14,7 @@ $(".golfers.show").ready(function() {
 });
 
 Golfer.ready = function() {
-  Golfer.nextListener()
+  Golfer.getGolfersIds()
   // select template html
   Golfer.golferHandlebars = $("#golfer-template").html()
 
@@ -33,7 +33,20 @@ Golfer.ready = function() {
   Golfer.roundsTemplate = Handlebars.compile(Golfer.roundsHandlebars)
 }
 
-Golfer.nextListener = function() {
+Golfer.getGolfersIds = function() {
+  var golferRequest = $.get("/golfers.json")
+    .fail(function(response) {
+      console.log(response)
+    })
+    .done(Golfer.doneGetGolfersIds)
+}
+
+Golfer.doneGetGolfersIds = function(golfersJson) {
+  var golfersIds = golfersJson.map(golfer => golfer.id);
+  Golfer.nextListener(golfersIds)
+}
+
+Golfer.nextListener = function(golfersIds) {
   $next = $(".btn-primary.next-golfer");
   $next.on('click', function() {
     var nextId = parseInt($next.data("id")) + 1;
@@ -41,12 +54,22 @@ Golfer.nextListener = function() {
     if (nextId > lastGolferId) {
       nextId = $next.data("first-golfer-id");
     }
-    $next.data("id", nextId);
-    Golfer.getNextGolfer(nextId);
+    Golfer.checkNextId(nextId, golfersIds);
   });
 }
 
+Golfer.checkNextId = function(nextId, golfersIds) {
+  if (golfersIds.includes(nextId)) {
+    Golfer.getNextGolfer(nextId)
+  } else {
+    nextId += 1;
+    Golfer.checkNextId(nextId, golfersIds)
+  }
+}
+
 Golfer.getNextGolfer = function(nextId) {
+  //update the id for the golfer in the next button if this function called
+  $next.data("id", nextId);
   $.get("/golfers/" + nextId + ".json", function(golfer) {
   })
   .success(Golfer.successGetNext)
