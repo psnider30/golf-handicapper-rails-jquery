@@ -27,6 +27,7 @@ $(function() {
 });
 
 GolfCourse.ready = function() {
+  GolfCourse.filterRoundsListener()
   GolfCourse.hideIfNoTags()
   GolfCourse.showRoundsListener()
   GolfCourse.postRoundListener()
@@ -44,6 +45,36 @@ GolfCourse.ready = function() {
   GolfCourse.showCommentTemplate = Handlebars.compile(GolfCourse.showCommentHandlebars);
 }
 
+GolfCourse.filterRoundsListener = function() {
+  $filterRounds = $("#filter-rounds");
+  $filterRounds.on("click", function(e) {
+    e.preventDefault()
+    const id = $(this).data("id");
+
+  $.get("/golf_courses/" + id + ".json")
+    .done(function(rounds) {
+      if ($.trim(rounds)) {
+        GolfCourse.doneGetFilteredRounds(rounds)
+        console.log(rounds);
+      } else {
+        alert("No Rounds Posted")
+      }
+    })
+    .fail(GolfCourse.failGetFiteredRounds)
+  });
+}
+
+
+GolfCourse.doneGetFilteredRounds = function(golfCourseJson) {
+  const golfCourse = new GolfCourse(golfCourseJson);
+  const golfCourseRounds = golfCourse.rounds.filter(round => round.score < 80)
+  golfCourse.rounds = golfCourseRounds
+  const id = golfCourse.id
+  const showCourseRounds = golfCourse.renderGolfCourseRounds()
+  $(`#all-rounds-gc-${id}`).html(showCourseRounds)
+}
+
+
 GolfCourse.hideIfNoTags = function() {
   $tags = $('.tags-list')
   if ($('.tags-list li').text()=== '') { $tags.hide() }
@@ -53,7 +84,7 @@ GolfCourse.showRoundsListener = function() {
   $showRounds = $(".btn-info.show-rounds");
   $showRounds.on("click", function(e) {
     e.preventDefault();
-    var id = $(this).data("id");
+    const id = $(this).data("id");
     GolfCourse.getGolfCourseRounds(id)
   });
 }

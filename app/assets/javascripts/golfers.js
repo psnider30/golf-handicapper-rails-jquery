@@ -77,9 +77,9 @@ Golfer.getNextGolfer = function(nextId) {
 }
 
 Golfer.successGetNext = function(golferJson) {
-  var golfer = new Golfer(golferJson);
-  var showGolfer = golfer.renderGolfer()
-  var showRounds = golfer.renderRounds()
+  const golfer = new Golfer(golferJson);
+  const showGolfer = golfer.renderGolfer()
+  const showRounds = golfer.renderRounds()
 
   // add or append the html from showGolfer
   $(".golfer-info").html(showGolfer)

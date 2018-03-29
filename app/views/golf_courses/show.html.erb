@@ -63,6 +63,7 @@
     <li><button class="btn-info show-rounds" data-id="<%= @golf_course.id %>">Show all Rounds</button></li>
     <li><%= button_to('Edit Golf Course', edit_golf_course_path, class: "btn-warning gc-show", method: 'get') %></li>
     <li><%= button_to('Delete Golf Course', golf_course_path(@golf_course), class:"btn-danger gc-show", method: 'delete') if current_golfer.id == 1 %></li>
+    <li><button id='filter-rounds' data-id="<%= @golf_course.id %>"</button>Filter</button></li>
   </ul>
 </div><br>
 
